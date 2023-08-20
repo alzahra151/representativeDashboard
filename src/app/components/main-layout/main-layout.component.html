@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<div class=" m-0 p-0 ">
+    <div class="flex m-0 p-0 flex-nowrap grid grid-cols-6" dir="rtl">
+        <div class="lg:col-span-1 bg-red-600  pb-8 m-0 lg:block hidden ">
+            <app-side-bar></app-side-bar>
+
+        </div>
+        <div class="lg:col-span-5 col-span-6   m-0  ">
+            <div class="flex m-0 p-0 flex-col w-full  ">
+                <div class="w-full p-0 bg-white shadow-lg">
+                    <app-navbar></app-navbar>
+                </div>
+                <div class="pe-lg-4 ps-lg-4 mt-2">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

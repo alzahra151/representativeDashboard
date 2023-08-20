@@ -1,0 +1,151 @@
+<!-- <div class="flex justify-center"> -->
+<div class="grid grid-cols-5 m-auto mt-5 flex items-center justify-center mx-8">
+    <div dir="rtl"
+        class=" bg-gray-50  col-span-5 md:col-span-4 lg:col-span-4 p-2 pt-2 bg-white  border border-gray-150 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="grid grid-cols-6 ">
+            <span
+                class="col-span-2 lg:col-span-3 inline-flex items-center justify-center justify-self-start  w-[2.5rem] h-[2.5rem] p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">كود{{Request?.Code}}
+            </span>
+            <div class="col-span-4 lg:col-span-3 flex ps-2">
+
+                <div class="mt-8">
+                    <div>المندوب : <span>{{Request?.ReprsentativeID.FullName}}</span></div>
+                    <div>التاريخ : <span dir="ltr">{{Request?.createdAt | date :'short'}}</span></div>
+                    <div class="flex justify-end m-5 mt-3">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 flex flex-nowrap mt-5">
+            <div class="col-span-2 md:col-span-2 lg:col-span-1 ">
+                <div class="flex items-center">
+
+                    <span [ngClass]="Request?.Accept?'bg-green-100':Request?.Pending? 'bg-gray-150':'bg-red-70'"
+                        class="px-2 py-2  font-bold text-gray-700"><i class="pi pi-table mx-2"></i>الطلب</span>
+                    <hr class="flex-grow border-yellow-500 border-1 mx-2">
+                </div>
+                <div class="border-r-4 border-gray-900 px-2">
+                    <div class="grid grid-cols-4">
+                        <div class="col-span-2">اسم النشاط </div>
+                        <div class="col-span-2">: {{Request?.ActivityName}}</div>
+                    </div>
+                    <div class="grid grid-cols-4">
+                        <div class="col-span-2"> طبيعة النشاط </div>
+                        <div class="col-span-2">: {{Request?.ActivityNature}}</div>
+                    </div>
+                    <div class="grid grid-cols-4">
+                        <div class="col-span-2"> عنوان النشاط </div>
+                        <div class="col-span-2">: {{Request?.activityLocation}}</div>
+                    </div>
+                    <div class="grid grid-cols-4">
+                        <div class="col-span-2"> الدولة</div>
+                        <div class="col-span-2">:{{Request?.Country}}</div>
+                    </div>
+                    <div class="grid grid-cols-4">
+                        <div class="col-span-2"> المحافظة</div>
+                        <div class="col-span-2">: {{Request?.Governorate}}</div>
+                    </div>
+                    <div class="grid grid-cols-4">
+                        <div class="col-span-2"> المدينة</div>
+                        <div class="col-span-2">: {{Request?.City}}</div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-span-2 md:col-span-2 lg:col-span-1">
+                <div class="flex items-center">
+
+                    <span [ngClass]="Request?.Accept ?'bg-green-100':Request?.Pending  ? 'bg-gray-200':'bg-red-70'"
+                        class="px-2 py-2  font-bold text-gray-700"> <i class="pi pi-user mx-2"
+                            style="color: black"></i>بيانات العميل </span>
+                    <hr class="flex-grow border-yellow-500 border-1 mx-2">
+                </div>
+                <div class="border-r-4 border-gray-900 ">
+
+                    <div class="flex">
+                        <div class="mx-2"> <i class="pi pi-user" style="color: black"></i></div>
+                        <div class=""> {{Request?.Name}}</div>
+                    </div>
+                    <div class="flex">
+
+                        <div class="mx-2"> <i class="pi   pi-mobile" style="color: rgb(48, 61, 241)"></i> </div>
+                        <div class=""> {{Request?.Mobile}}</div>
+                    </div>
+                    <div class="flex">
+                        <div class="mx-2"> <i class="pi  pi-phone" style="color: rgb(0, 0, 0)"></i> </div>
+                        <div class="">{{Request?.Phone}}</div>
+                    </div>
+                    <div class="flex">
+                        <div class="mx-2"> <i class="pi   pi-envelope" style="color: red"></i> </div>
+                        <div class="">{{Request?.Email}}</div>
+                    </div>
+                    <div class="flex">
+                        <div class="mx-2"> <i class="pi   pi-map-marker" style="color: green"></i> </div>
+                        <div class=""> {{Request?.Location}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center">
+            <hr class="flex-grow border-yellow-500 border-8 mx-2 mt-3">
+        </div>
+
+        <div class="-mt-2 border border-yellow-500">
+
+            <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 mb-4 border-yellow-500" dir="rtl">
+
+                <div *ngFor="let service of Request?.Services"
+                    class=" p-2 pt-2  text-black  mx-3 bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
+
+                    <!-- <h5 class=" text-center  ps-2">الخدمة</h5> -->
+                    <div class=" col-span-5 grid grid-cols-5 ">
+
+                        <h5 class="col-span-5 text-center flex ps-2 bg-gray-900 text-white">{{service.Service.Name}}
+                        </h5>
+                        <span>
+                            <h5 class=" col-span-1 text-center flex ps-2"> الاجهزة:</h5>
+                        </span>
+                        <span class="col-span-4 ps-2 flex flex-wrap">
+                            <span *ngFor="let device of service.Devices"
+                                class=" m-2 bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">{{device}}</span>
+
+                        </span>
+                    </div>
+                    <hr class="flex-grow border-yellow-500 border-1 mx-2 mt-8 ">
+                    <span>ملاحظات : </span><span class=" ">{{service.Notes}}</span>
+                </div>
+            </div>
+
+
+        </div>
+
+        <ng-container *ngIf="userRole==='SalesManager'">
+            <form [formGroup]="InitialMonyForm" class="w-full max-w-sm mt-5 mx-5">
+                <div class="md:flex md:items-center mb-6">
+                    <div class="mb-6">
+                        <label for="large-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            المبلغ المستحق قبل
+                            التركيب<span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="large-input" placeholder="0.000.00 EGP"
+                            formControlName="InitialِAmountOfMoney"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </div>
+                </div>
+                <div class="flex justify-end ">
+
+
+                    <button (click)="SendReqWithAmountOfMony()" [disabled]="InitialMonyForm.invalid"
+                        class="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-yellow-400 font-bold py-2 px-4 rounded"
+                        type="button">
+                        ارسال الطلب
+                    </button>
+                    {{InitialMonyForm.invalid | json}}
+                </div>
+            </form>
+        </ng-container>
+
+    </div>
+</div>
+<!-- </div> -->

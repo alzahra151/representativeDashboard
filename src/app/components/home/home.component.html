@@ -1,0 +1,212 @@
+<ng-container *ngIf="userRole==='Representative'">
+    <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 mb-4 m-8" dir="rtl">
+        <div *ngFor="let SelectedOfferInfo of offers"
+            class=" p-2 pt-2 bg-white  border border-gray-150 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="grid grid-cols-5 ">
+                <span
+                    class=" col-span-4 inline-flex items-center justify-center justify-self-start  w-[2.5rem] h-[2.5rem] p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">كود{{SelectedOfferInfo?.PriceOfferReq?.Code}}
+                </span>
+                <div class="col-span-1 flex ps-2">
+                    <p-button (onClick)="downloadPDf(SelectedOfferInfo)" label="" [style]="{
+                    padding: '2px', backgroundColor:'RGB(247, 213, 77)' , color:'black'
+                }">
+
+                        <img src="../../../assets/img.icons81.png" style="height: 25px;width: 25px;">تحميل
+                    </p-button>
+
+                </div>
+            </div>
+            <div class="grid grid-cols-2 flex flex-nowrap mt-5">
+                <div class="col-span-2 md:col-span-2 lg:col-span-1 ">
+                    <div class="flex items-center">
+
+                        <span
+                            [ngClass]="SelectedOfferInfo?.PriceOfferReq?.Accept ?'bg-green-100':SelectedOfferInfo?.PriceOfferReq?.Pending  ? 'bg-gray-200':'bg-red-70'"
+                            class="px-2 py-2  font-bold text-gray-700">الطلب</span>
+                        <hr class="flex-grow border-yellow-500 border-1 mx-2">
+                    </div>
+                    <div class="border-r-4 border-gray-900 px-2">
+                        <div>اسم النشاط : <span class="mx-2">{{SelectedOfferInfo?.PriceOfferReq?.ActivityName}}</span>
+                        </div>
+                        <div>طبيعة النشاط : {{SelectedOfferInfo?.PriceOfferReq?.ActivityNature}}</div>
+                        <div>طبيعة النشاط : {{SelectedOfferInfo?.PriceOfferReq?.activityLocation}}</div>
+                        <div>الدولة : <span class="mx-2">{{SelectedOfferInfo?.PriceOfferReq?.Country}}</span></div>
+                        <div>المحافظة : <span class="mx-2">{{SelectedOfferInfo?.PriceOfferReq?.Governorate}}</span>
+                        </div>
+                        <div>المدينة : <span class="mx-2">{{SelectedOfferInfo?.PriceOfferReq?.City}}</span></div>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="col-span-2 md:col-span-2 lg:col-span-1">
+                    <div class="flex items-center">
+
+                        <span
+                            [ngClass]="SelectedOfferInfo?.Accept ?'bg-green-100':SelectedOfferInfo?.Pending  ? 'bg-gray-200':'bg-red-70'"
+                            class="px-2 py-2  font-bold text-gray-700">بيانات العميل</span>
+                        <hr class="flex-grow border-yellow-500 border-1 mx-2">
+                    </div>
+                    <div class="border-r-4 border-gray-900 px-2">
+                        <div> اسم صاحب النشاط : {{SelectedOfferInfo?.PriceOfferReq?.Name}}</div>
+                        <div>رقم الجوال : <span>{{SelectedOfferInfo?.PriceOfferReq?.Mobile}}</span></div>
+                        <div>رقم الهاتف : <span>{{SelectedOfferInfo?.PriceOfferReq?.Phone}}</span></div>
+                        <div>البريد الالكتروني : <span>{{SelectedOfferInfo?.PriceOfferReq?.Email}}</span></div>
+                        <div>العنوان : <span>{{SelectedOfferInfo?.PriceOfferReq?.Location}}</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center">
+                <hr class="flex-grow border-yellow-500 border-8 mx-2 mt-3">
+            </div>
+            <div class="-mt-2 border border-yellow-500">
+
+                <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 mb-4" dir="rtl">
+
+                    <div *ngFor="let service of SelectedOfferInfo?.PriceOffer ,let i=index"
+                        class=" p-2 pt-2 bg-white text-black  mx-3  dark:bg-gray-800 dark:border-gray-700">
+
+                        <h5 class="col-span-5 text-center  ps-2">الخدمة</h5>
+                        <div class="grid grid-cols-5 ">
+
+                            <h5 class="col-span-5 flex ps-2 bg-gray-100 text-gray-800">{{service.Service.Name}}</h5>
+                            <span>
+                                <h5 class=" col-span-1 text-center flex ps-2"> الاجهزة:</h5>
+                            </span>
+                            <span class="col-span-4 ps-2 flex flex-wrap">
+                                <span *ngFor="let device of SelectedOfferInfo?.PriceOfferReq?.Services[i]?.Devices"
+                                    class=" m-2 bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">{{device}}</span>
+
+                            </span>
+                            <span class="col-span grow">
+                                <h5 class="col-span  text-center flex ps-2"> عرض السعر:</h5>
+                            </span>
+                            <span class="col-span ps-2">
+                                <span
+                                    class=" m-2 bg-black text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">{{service.ServicePriceOffer}}</span>
+
+                            </span>
+                        </div>
+
+
+                    </div>
+                    <hr class="flex-grow border-yellow-500 border-1 mx-2 mt-8 ">
+                    <div class="flex bg-yellow-500 p-3">
+                        <span class=" "> اجمالي عرض السعر: </span><span
+                            class="px-3 ">{{SelectedOfferInfo?.TotalPrice}}</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mt-8">
+
+                <div>التاريخ : <span dir="ltr">{{SelectedOfferInfo?.createdAt}}</span></div>
+                <div class="flex justify-end m-5 mt-3">
+                    <p-button [routerLink]="['Offer', SelectedOfferInfo._id]" label="" [style]="{
+                    padding: '2px', backgroundColor:'black' , color:'white'
+                }">
+                        التفاصيل
+                    </p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="userRole==='SalesManager'">
+    <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 mb-4 m-8" dir="rtl">
+        <div *ngFor="let req of Requestes"
+            class=" p-2 pt-2 bg-white  border border-gray-150 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="grid grid-cols-5 ">
+                <span
+                    class=" col-span-4 inline-flex items-center justify-center justify-self-start  w-[2.5rem] h-[2.5rem] p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">كود{{req?.Code}}
+                </span>
+            </div>
+            <div class="grid grid-cols-2 flex flex-nowrap mt-5">
+                <div class="col-span-2 md:col-span-2 lg:col-span-1 ">
+                    <div class="flex items-center">
+
+                        <span [ngClass]="req.Accept ?'bg-green-100':req.Pending  ? 'bg-gray-150':'bg-red-70'"
+                            class="px-2 py-2  font-bold text-gray-700"><i class="pi pi-table mx-2"></i>الطلب</span>
+                        <hr class="flex-grow border-yellow-500 border-1 mx-2">
+                    </div>
+                    <div class="border-r-4 border-gray-900 px-2">
+                        <div class="grid grid-cols-4">
+                            <div class="col-span-2">اسم النشاط </div>
+                            <div class="col-span-2">: {{req.ActivityName}}</div>
+                        </div>
+                        <div class="grid grid-cols-4">
+                            <div class="col-span-2"> طبيعة النشاط </div>
+                            <div class="col-span-2">: {{req.ActivityNature}}</div>
+                        </div>
+                        <div class="grid grid-cols-4">
+                            <div class="col-span-2"> عنوان النشاط </div>
+                            <div class="col-span-2">: {{req.activityLocation}}</div>
+                        </div>
+                        <div class="grid grid-cols-4">
+                            <div class="col-span-2"> الدولة</div>
+                            <div class="col-span-2">:{{req.Country}}</div>
+                        </div>
+                        <div class="grid grid-cols-4">
+                            <div class="col-span-2"> المحافظة</div>
+                            <div class="col-span-2">: {{req.Governorate}}</div>
+                        </div>
+                        <div class="grid grid-cols-4">
+                            <div class="col-span-2"> المدينة</div>
+                            <div class="col-span-2">: {{req.City}}</div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-span-2 md:col-span-2 lg:col-span-1">
+                    <div class="flex items-center">
+
+                        <span [ngClass]="req.Accept ?'bg-green-100':req.Pending  ? 'bg-gray-200':'bg-red-70'"
+                            class="px-2 py-2  font-bold text-gray-700"> <i class="pi pi-user mx-2"
+                                style="color: black"></i>بيانات العميل </span>
+                        <hr class="flex-grow border-yellow-500 border-1 mx-2">
+                    </div>
+                    <div class="border-r-4 border-gray-900 ">
+
+                        <div class="flex">
+                            <div class="mx-2"> <i class="pi pi-user" style="color: black"></i></div>
+                            <div class=""> {{req.Name}}</div>
+                        </div>
+                        <div class="flex">
+
+                            <div class="mx-2"> <i class="pi   pi-mobile" style="color: rgb(48, 61, 241)"></i> </div>
+                            <div class=""> {{req.Mobile}}</div>
+                        </div>
+                        <div class="flex">
+                            <div class="mx-2"> <i class="pi  pi-phone" style="color: rgb(0, 0, 0)"></i> </div>
+                            <div class="">{{req.Phone}}</div>
+                        </div>
+                        <div class="flex">
+                            <div class="mx-2"> <i class="pi   pi-envelope" style="color: red"></i> </div>
+                            <div class="">{{req.Email}}</div>
+                        </div>
+                        <div class="flex">
+                            <div class="mx-2"> <i class="pi   pi-map-marker" style="color: green"></i> </div>
+                            <div class=""> {{req.Location}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center">
+                <hr class="flex-grow border-yellow-500 border-8 mx-2 mt-3">
+            </div>
+
+            <div class="mt-8 bg-gray-100">
+                <div>المندوب : <span>{{req?.ReprsentativeID?.FullName}}</span></div>
+                <div>التاريخ : <span dir="ltr">{{req?.createdAt}}</span></div>
+                <div class="flex justify-end m-5 mt-3">
+
+                </div>
+            </div>
+
+            <div class="flex justify-end mt-3">
+                <button type="button" [routerLink]="['Requests/ReqDetails' ,req._id]"
+                    class=" mx-5 text-white bg-black hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">التفاصيل</button>
+            </div>
+        </div>
+    </div>
+</ng-container>

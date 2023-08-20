@@ -1,0 +1,13 @@
+<div class=" flex justify-end " dir="rtl">
+    <p-sidebar [(visible)]="gfg" [baseZIndex]="10000" position="right" styleClass="p-sidebar-sm">
+        <app-side-bar></app-side-bar>
+    </p-sidebar>
+
+    <a routerLink="/Elabd/home" class="flex items-center pb-3 ps-2 text-decoration-none mx-2 my-2">
+        <span class="fs-5 d-none d-sm-inline text-dark">{{AgentName}}</span>
+        <img src="assets/user.jpg" class="rounded-full m-2" style="width: 50px;height:50px" />
+    </a>
+    <button (click)="gfg = true" style="color: black" class=" mx-4 lg:hidden block ">
+        <i class="pi pi-align-left"></i>
+    </button>
+</div>

@@ -1,0 +1,213 @@
+<!-- <div class="flex justify-center"> -->
+
+<div class="grid grid-cols-5 m-auto mt-5 flex items-center justify-center mx-8">
+    <div dir="rtl"
+        class=" bg-gray-50  col-span-5 md:col-span-3 lg:col-span-4 p-2 pt-2 bg-white  border border-gray-150 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="grid grid-cols-5 ">
+            <span
+                class=" col-span-4 inline-flex items-center justify-center justify-self-start  w-[2.5rem] h-[2.5rem] p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">كود{{Offer?.PriceOfferReq.Code}}
+            </span>
+            <div class="col-span-1 flex ps-2">
+                <div class="col-span-1 flex ps-2">
+                    <p-button (onClick)="downloadPDf(Offer)" label="" [style]="{
+                        padding: '2px', backgroundColor:'RGB(247, 213, 77)' , color:'black'
+                    }">
+
+                        <img src="../../../assets/img.icons81.png" style="height: 25px;width: 25px;">تحميل
+                    </p-button>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="grid grid-cols-2 flex flex-nowrap mt-5">
+            <div class="col-span-2 md:col-span-2 lg:col-span-1 ">
+                <div class="flex items-center">
+
+                    <span
+                        [ngClass]="Offer?.PriceOfferReq.Accept ?'bg-green-100':Offer?.PriceOfferReq.Pending  ? 'bg-gray-200':'bg-red-70'"
+                        class="px-2 py-2  font-bold text-gray-700">الطلب</span>
+                    <hr class="flex-grow border-yellow-500 border-1 mx-2">
+                </div>
+                <div class="border-r-4 border-gray-900 px-2">
+                    <div class="grid grid-cols-3">
+                        <div class="col-span-1">اسم النشاط </div>
+                        <div class="col-span-2">: {{Offer?.PriceOfferReq.ActivityName}}</div>
+                    </div>
+                    <div class="grid grid-cols-3">
+                        <div class="col-span-1"> طبيعة النشاط </div>
+                        <div class="col-span-2">: {{Offer?.PriceOfferReq.ActivityNature}}</div>
+                    </div>
+                    <div class="grid grid-cols-3">
+                        <div class="col-span-1"> عنوان النشاط </div>
+                        <div class="col-span-2">: {{Offer?.PriceOfferReq.activityLocation}}</div>
+                    </div>
+                    <div class="grid grid-cols-3">
+                        <div class="col-span-1"> الدولة</div>
+                        <div class="col-span-2">:{{Offer?.PriceOfferReq.Country}}</div>
+                    </div>
+                    <div class="grid grid-cols-3">
+                        <div class="col-span-1"> المحافظة</div>
+                        <div class="col-span-2">: {{Offer?.PriceOfferReq.Governorate}}</div>
+                    </div>
+                    <div class="grid grid-cols-3">
+                        <div class="col-span-1"> المدينة</div>
+                        <div class="col-span-2">: {{Offer?.PriceOfferReq.City}}</div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-span-2 md:col-span-2 lg:col-span-1">
+                <div class="flex items-center">
+
+                    <span [ngClass]="Offer?.Accept ?'bg-green-100':Offer?.Pending  ? 'bg-gray-200':'bg-red-70'"
+                        class="px-2 py-2  font-bold text-gray-700">بيانات العميل</span>
+                    <hr class="flex-grow border-yellow-500 border-1 mx-2">
+                </div>
+                <div class="border-r-4 border-gray-900 px-2">
+                    <div class="grid grid-cols-3">
+                        <div class="col-span-1"> اسم صاحب النشاط</div>
+                        <div class="col-span-2">: {{Offer?.PriceOfferReq.Name}}</div>
+                    </div>
+                    <div class="grid grid-cols-3">
+                        <div class="col-span-1"> رقم الجوال </div>
+                        <div class="col-span-2">: {{Offer?.PriceOfferReq.Mobile}}</div>
+                    </div>
+                    <div class="grid grid-cols-3">
+                        <div class="col-span-1"> رقم الهاتف </div>
+                        <div class="col-span-2">: {{Offer?.PriceOfferReq.Phone}}</div>
+                    </div>
+                    <div class="grid grid-cols-3">
+                        <div class="col-span-1"> البريد الالكتروني </div>
+                        <div class="col-span-2">: {{Offer?.PriceOfferReq.Email}}</div>
+                    </div>
+                    <div class="grid grid-cols-3">
+                        <div class="col-span-1"> العنوان </div>
+                        <div class="col-span-2">: {{Offer?.PriceOfferReq.Location}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center">
+            <hr class="flex-grow border-yellow-500 border-8 mx-2 mt-3">
+        </div>
+        <div class="-mt-2 border border-yellow-500">
+
+            <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 mb-4 mt-8" dir="ltr">
+                <!-- <h5 class="col-span-5 text-center  ps-2">الخدمة</h5> -->
+                <div *ngFor="let service of Offer?.PriceOffer ,let i=index"
+                    class=" p-2 pt-2 bg-white text-black  mx-3  dark:bg-gray-800 dark:border-gray-700 border-b-2 border-gray-400">
+
+
+                    <div class="grid grid-cols-9 ">
+                        <div class="col-span-4  border-r-2 border-gray-400">
+                            <div class="flex">
+                                <img src="../../../assets/square.png" style="width:20px;height:20px">
+                                <span>{{service.Service.Name}}</span>
+                            </div>
+                            <ul class="mx-3">
+                                <li *ngFor="let detail of service.Service.Details "><i
+                                        class="bi bi-square-fill text-yellow-500"></i> {{detail}}</li>
+                            </ul>
+                        </div>
+                        <div class="col-span-3  border-r-2 border-gray-400">
+                            <div *ngFor="let device of service.DeviceOffer" class="mb-5">
+                                <div class="flex mx-2 ">
+                                    <img src="../../../assets/square.png" style="width:15px;height:15px" class="m-2">
+                                    {{device.Device}}
+                                </div>
+
+                            </div>
+                            <div class="flex justify-end mx-2">
+                                <h3 class="">Sub Total</h3>
+                            </div>
+
+                        </div>
+                        <div class="col-span-2">
+                            <div *ngFor=" let device of service.DeviceOffer" class="mb-5">
+                                <div class="flex m-2">
+
+                                    <span>{{device.DevicePricrOffer | currency: 'EGP'}}</span>
+                                </div>
+
+                            </div>
+                            <h3 class="m-2">{{service.ServicePriceOffer | currency: 'EGP'}}</h3>
+                        </div>
+                        <!-- <h5 class="col-span-5 flex ps-2 bg-gray-100 text-gray-800">{{service.Service.Name}}</h5>
+                            <span>
+                                <h5 class=" col-span-1 text-center flex ps-2"> الاجهزة:</h5>
+                            </span>
+                            <span class="col-span-4 ps-2 flex flex-wrap">
+                                <span *ngFor="let device of Offer?.PriceOfferReq.Services[i].Devices"
+                                    class=" m-2 bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">{{device}}</span>
+    
+                            </span>
+                            <span class="col-span grow">
+                                <h5 class="col-span  text-center flex ps-2"> عرض السعر:</h5>
+                            </span>
+                            <span class="col-span ps-2">
+                                <span
+                                    class=" m-2 bg-black text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">{{service.ServicePriceOffer}}</span>
+    
+                            </span> -->
+                    </div>
+
+
+                </div>
+                <hr class="flex-grow border-yellow-500 border-1 mx-2 mt-8 ">
+                <div class="flex bg-yellow-500 p-3">
+                    <span class=" "> Total : </span><span class="px-3 ">{{Offer?.TotalPrice | currency:
+                        'EGP'}}</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mt-8">
+            <!-- <div>المندوب : <span>{{Offer?.PriceOfferReq.ReprsentativeID.FullName}}</span></div> -->
+            <div>التاريخ : <span dir="ltr">{{Offer?.createdAt}}</span></div>
+            <div class="flex justify-end m-5 mt-3">
+
+
+            </div>
+
+            <div class="flex justify-end m-5 mt-3">
+                <p-button (click)="showDialog()" label="" [style]="{
+                    padding: '2px', backgroundColor:'RGB(247, 213, 77)' , color:'black'
+                }">
+
+                    <img src="../../../assets/img.icons81.png" style="height: 25px;width: 25px;">ارسال
+                </p-button>
+
+            </div>
+        </div>
+    </div>
+    <!-- </div> -->
+    <!-- email model -->
+
+
+    <p-dialog header="ارسال عرض السعر كملف PDF" [(visible)]="visible" [breakpoints]="{ '960px': '75vw' }"
+        [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+        <div class="grid grid-cols-3  mb-2">
+            <div class="col-span-1"> سيتم ارسال الملف الي</div>
+            <div class="col-span-2 bg-green-100">: {{Offer?.PriceOfferReq.Email}}</div>
+        </div>
+        <div class="grid grid-cols-3 mb-5">
+            <div class="col-span-1"> سيتم الارسال من </div>
+            <div class="col-span-2 bg-green-100">: {{Offer?.PriceOfferReq.ReprsentativeID.Email}}</div>
+        </div>
+        <p-button (click)="sendPdfWithMail(Offer)" label="" [style]="{
+            padding: '2px', backgroundColor:'RGB(247, 213, 77)' , color:'black'
+        }">
+
+            <img src="../../../assets/img.icons81.png" style="height: 25px;width: 25px;">تأكيد الارسال
+        </p-button>
+    </p-dialog>
+    <!-- sucees send -->
+    <p-dialog header="" [(visible)]="visibleSuccess" [breakpoints]="{ '960px': '75vw' }"
+        [style]="{ width: '50vw',backgroundColor:'rgb(203, 231, 197)' }" [draggable]="false" [resizable]="false">
+        <p-messages [closable]="false"></p-messages>
+
+    </p-dialog>
+    <!-- <ngx-extended-pdf-viewer [src]="pdfUrl"></ngx-extended-pdf-viewer> -->
