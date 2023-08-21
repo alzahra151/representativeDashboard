@@ -22,10 +22,16 @@ export class HomeComponent implements OnInit {
       console.log('Post change:', change);
       this.getAgentOffers()
     });
+    this.socket.on('ReqChange', (change) => {
+      console.log('Post change:', change);
+      this.getAgentOffers()
+    });
   }
   ngOnInit(): void {
-    this.userRole = this.AuthService.getUserRole()
-    if (this.userRole == 'SalesManager') {
+    // this.userRole = this.AuthService.getUserRole()
+    this.userRole = localStorage.getItem('Role') || ''
+    console.log(this.userRole, "test")
+    if (this.userRole === 'SalesManager') {
       this.getAllReqs()
     } else {
       this.getAgentOffers()

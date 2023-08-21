@@ -13,6 +13,7 @@ export class AuthService {
     const userData = JSON.parse(atob(token.split('.')[1]))
     console.log(userData)
     this.userRole = userData.Role
+    console.log("test ", this.userRole)
   }
   getUserRole(): Roles {
     return this.userRole

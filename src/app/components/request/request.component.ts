@@ -10,10 +10,10 @@ import { RequestService } from 'src/app/services/request.service';
 export class RequestComponent implements OnInit {
   requests: any
   EditedReq: any
-  socket = io('http://localhost:3000');
+  socket = io('https://varroxadministrationapi.onrender.com');
   constructor(private OfferService: OffersService, private reqSerice: RequestService) {
-    this.socket.on('OfferChange', (change) => {
-      console.log('Post change:', change);
+    this.socket.on('ReqChange', (change) => {
+      console.log('User change:', change);
       this.getRequests()
     });
   }

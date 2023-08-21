@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
-
+import { io } from 'socket.io-client'
 @Component({
   selector: 'app-commented-req',
   templateUrl: './commented-req.component.html',
@@ -8,7 +8,14 @@ import { RequestService } from 'src/app/services/request.service';
 })
 export class CommentedReqComponent implements OnInit {
   requests: any
-  constructor(private reqService: RequestService) { }
+  socket = io('https://varroxadministrationapi.onrender.com');
+  constructor(private reqService: RequestService) {
+
+    this.socket.on('ReqChange', (change) => {
+      console.log('Post change:', change);
+      this.getCommentedReqs()
+    });
+  }
   ngOnInit(): void {
     this.getCommentedReqs()
   }
