@@ -1,4 +1,4 @@
-<ng-container *ngIf="userRole==='Representative'">
+<ng-container *ngIf="userRole=='Representative'">
     <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 mb-4 m-8" dir="rtl">
         <div *ngFor="let SelectedOfferInfo of offers"
             class=" p-2 pt-2 bg-white  border border-gray-150 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -112,7 +112,7 @@
     </div>
 </ng-container>
 
-<ng-container *ngIf="userRole==='SalesManager'">
+<ng-container *ngIf="userRole=='SalesManager'">
     <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 mb-4 m-8" dir="rtl">
         <div *ngFor="let req of Requestes"
             class=" p-2 pt-2 bg-white  border border-gray-150 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">

@@ -9,6 +9,7 @@ export class AuthService {
   constructor() { this.authenticate(); }
   private authenticate() {
     const token = localStorage.getItem('token') || ''
+    console.log(token)
     const userData = JSON.parse(atob(token.split('.')[1]))
     console.log(userData)
     this.userRole = userData.Role

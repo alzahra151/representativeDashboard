@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   userRole: string = ''
   socket = io('https://varroxadministrationapi.onrender.com');
   constructor(private OffersService: OffersService, private PdfService: PdfService, private AuthService: AuthService) {
-    this.getUserRole()
+    // this.getUserRole()
     // Listen for changes on the post change stream
     this.socket.on('OfferChange', (change) => {
       console.log('Post change:', change);
@@ -24,8 +24,14 @@ export class HomeComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.getAgentOffers()
-    this.getAllReqs()
+    this.userRole = this.AuthService.getUserRole()
+    if (this.userRole == 'SalesManager') {
+      this.getAllReqs()
+    } else {
+      this.getAgentOffers()
+    }
+
+
   }
   getAgentOffers() {
     this.OffersService.getAgentOffers().subscribe({
