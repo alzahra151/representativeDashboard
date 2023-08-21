@@ -16,7 +16,7 @@ export class ReqDetailsComponent implements OnInit {
   userRole: any;
   constructor(private route: ActivatedRoute, private router: Router,
     private reqService: RequestService, private FormBuilder: FormBuilder, private authService: AuthService) {
-    this.getUserRole()
+
     this.route.paramMap
       .subscribe(params => {
         console.log(params); // { orderby: "price" }
@@ -25,10 +25,11 @@ export class ReqDetailsComponent implements OnInit {
       }
       );
     this.InitialMonyForm = FormBuilder.group({
-      InitialِAmountOfMoney: ['', [Validators.required]],
+      InitialAmountOfMoney: ['', [Validators.required]],
     })
   }
   ngOnInit(): void {
+    this.userRole = localStorage.getItem('Role') || ''
     this.getReqDetails()
   }
   getReqDetails() {
@@ -42,8 +43,8 @@ export class ReqDetailsComponent implements OnInit {
     })
   }
   SendReqWithAmountOfMony() {
-    const InitialِAmountOfMoney = { ...this.InitialMonyForm.value, SendToAdmin: true }
-    this.reqService.updateReq(this.Request._id, InitialِAmountOfMoney).subscribe({
+    const InitialAmountOfMoney = { ...this.InitialMonyForm.value, SendToAdmin: true }
+    this.reqService.updateReq(this.Request._id, InitialAmountOfMoney).subscribe({
       next: (data) => {
         console.log(data)
         this.router.navigate(['/home'])
@@ -53,8 +54,5 @@ export class ReqDetailsComponent implements OnInit {
       }
     })
   }
-  getUserRole() {
-    this.userRole = this.authService.getUserRole()
-    console.log(this.userRole)
-  }
+
 }

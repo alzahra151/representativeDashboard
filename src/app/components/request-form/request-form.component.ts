@@ -115,9 +115,7 @@ export class RequestFormComponent implements OnInit {
       next: (res) => {
         console.log('sucess', res)
         this.ReqForm.reset()
-        this.Services().controls.forEach((control) => {
-          control.reset();
-        });
+
       },
       error: (err) => {
         console.log(err)
