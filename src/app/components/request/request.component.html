@@ -1,5 +1,5 @@
 <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 mb-4 mx-5 mt-8" dir="rtl">
-    <div *ngFor="let req of requests" [ngClass]="req.Accept ?'bg-green-100':req.Pending  ? 'bg-gray-200':'bg-red-50'"
+    <div *ngFor="let req of requests" [ngClass]="req.HavePriceOffer ?'bg-green-100':'bg-gray-200'"
         class=" p-2 pt-2   border border-gray-150 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div class="grid grid-cols-5 ">
             <span
