@@ -100,7 +100,7 @@
             <div class="mt-8">
                 <div class="flex">
                     <div class="flex-auto w-64">تاريخ العرض :{{SelectedOfferInfo?.createdAt | date:'short'}}</div>
-
+                    <i *ngIf="SelectedOfferInfo?.Approve" class="bi bi-check2-circle text-green-800"></i>
                 </div>
 
                 <div class="flex justify-end m-5 mt-3">
