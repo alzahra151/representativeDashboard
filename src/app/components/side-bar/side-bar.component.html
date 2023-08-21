@@ -16,7 +16,7 @@
 				<span class="font-semibold text-gray-900 dark:text-white"> اضافة طلب </span>
 			</a>
 		</li>
-		<li class="flex items-center space-x-3" *ngIf="userRole==='Representative'">
+		<li class="flex items-center space-x-3">
 			<a [routerLink]="['Requests']" class="flex">
 				<svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
@@ -27,7 +27,7 @@
 			</a>
 		</li>
 
-		<li class="flex items-center space-x-3" *ngIf="userRole==='Representative'">
+		<li class="flex items-center space-x-3">
 			<a [routerLink]="['CommentedReqs']" class="flex">
 				<svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true"
 					xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
