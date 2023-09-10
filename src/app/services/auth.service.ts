@@ -6,17 +6,17 @@ import { Roles } from '../models/roles';
 })
 export class AuthService {
   private userRole: Roles = Roles.Representative;
-  constructor() { this.authenticate(); }
-  private authenticate() {
+
+  constructor() { }
+
+  getUserRole(): Roles {
     const token = localStorage.getItem('token') || ''
-    console.log(token)
     const userData = JSON.parse(atob(token.split('.')[1]))
-    console.log(userData)
+    // console.log(userData)
     this.userRole = userData.Role
     console.log("test ", this.userRole)
-  }
-  getUserRole(): Roles {
     return this.userRole
   }
+
 
 }

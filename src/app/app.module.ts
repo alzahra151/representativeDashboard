@@ -11,12 +11,15 @@ import { MainLayoutComponent } from './components/main-layout/main-layout.compon
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { OfferPDFComponent } from './components/offer-pdf/offer-pdf.component';
 import { RequestComponent } from './components/request/request.component';
 import { DialogModule } from 'primeng/dialog';
 import { MessagesModule } from 'primeng/messages';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DropdownModule } from 'primeng/dropdown';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { WrapperComponent } from './components/wrapper/wrapper.component';
 import { AllRequestesComponent } from './components/all-requestes/all-requestes.component';
@@ -27,6 +30,10 @@ import { RequestFormComponent } from './components/request-form/request-form.com
 import { EditFormComponent } from './components/edit-form/edit-form.component';
 import { PendingRequestsComponent } from './components/pending-requests/pending-requests.component';
 import { CommentedReqComponent } from './components/commented-req/commented-req.component';
+import { AuthGuard } from './guards/auth.guard';
+import { MangerHomeComponent } from './components/manger-home/manger-home.component';
+import { RepresentativeHomeComponent } from './components/representative-home/representative-home.component';
+import { AdminGuard } from './guards/admin.guard';
 
 @NgModule({
   declarations: [
@@ -42,11 +49,13 @@ import { CommentedReqComponent } from './components/commented-req/commented-req.
     AllRequestesComponent,
 
     ReqDetailsComponent,
-     RegistrationComponent,
-     RequestFormComponent,
-     EditFormComponent,
-     PendingRequestsComponent,
-     CommentedReqComponent,
+    RegistrationComponent,
+    RequestFormComponent,
+    EditFormComponent,
+    PendingRequestsComponent,
+    CommentedReqComponent,
+    MangerHomeComponent,
+    RepresentativeHomeComponent,
 
   ],
   imports: [
@@ -61,9 +70,13 @@ import { CommentedReqComponent } from './components/commented-req/commented-req.
     CommonModule,
     DialogModule,
     MessagesModule,
-    NgxExtendedPdfViewerModule
+    NgxExtendedPdfViewerModule,
+    InputTextareaModule,
+    DropdownModule,
+    InputTextModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [AuthGuard, AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

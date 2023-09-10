@@ -37,4 +37,7 @@ export class RequestService {
   getCommentedReqs() {
     return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/CommentedReqs`, this.options)
   }
+  getDeviceById(id :any){
+    return this.httpClient.get(`${environment.apiUrl}Device/${id}`);
+  }
 }

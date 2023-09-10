@@ -164,7 +164,7 @@
                             </thead>
                             <tbody class="text-right" formArrayName="Services">
                                 <tr class="address-container"
-                                    *ngFor="let group of Services().controls; let serviceIndex = index;"
+                                    *ngFor="let group of Services.controls; let serviceIndex = index;"
                                     [formGroupName]="serviceIndex">
 
                                     <td class="px-1 py-5 border-b border-gray-200 bg-white text-sm">
@@ -183,22 +183,23 @@
                                     <td class="px-1 py-2 border-b border-gray-200 bg-white text-sm">
                                         <div formArrayName="Devices">
                                             <div class="mb-1 ms-4"
-                                                *ngFor="let skill of DeviceInp(serviceIndex).controls; let skillIndex=index">
-                                                <label for="usrMobile{{skillIndex}}" class="form-label">جهاز
-                                                    رقم{{skillIndex}}:</label>
+                                                *ngFor="let skill of DeviceOffer(serviceIndex).controls; let j=index"
+                                                [formGroupName]="j">
+                                                <!-- <label for=" usrMobile{{skillIndex}}" class="form-label">جهاز
+                                                رقم{{skillIndex}}:</label> -->
                                                 <span
                                                     class="servicesInput inline-block  my-2 font-semibold text-green-900 leading-tight">
 
                                                     <input type="string"
                                                         class="focus:outline-none  servicesInput p-1 inset-0 bg-green-200 opacity-50 rounded-full  form-control"
-                                                        name="usrMobile{{serviceIndex+1}}"
-                                                        id="usrMobile{{skillIndex+1}}" [formControlName]="skillIndex">
+                                                        name="Service{{serviceIndex+1}}" id="Service{{serviceIndex+1}}"
+                                                        formControlName="Quantity">
                                                 </span>
                                             </div>
                                         </div>
-                                        <button
+                                        <!-- <button
                                             class="text-yellow-500 text-center bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm   px-8 m-auto mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-                                            (click)="addDeviceInp(serviceIndex)">+</button>
+                                            (click)="addDeviceInp(serviceIndex)">+</button> -->
                                     </td>
                                     <td class="px-1 h-full border-b border-gray-200 bg-white text-sm">
                                         <textarea formControlName="Notes" id="description"
@@ -216,6 +217,83 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+
+            <!-- service form  -->
+            <div class="bg-white p-2 shadow" dir="rtl">
+                <div formArrayName="Services" class="">
+                    <div class="flex grid grid-cols-6 border border-gray-300"
+                        *ngFor="let group of Services.controls; let serviceIndex = index;"
+                        [formGroupName]="serviceIndex">
+                        <div class="lg:col-span-3 col-span-6   ">
+                            <div class="w-100  p-2 m-3 ">
+                                <select id="category" dir="rtl" name="selectedValue"
+                                    (change)="SelectedService($event ,serviceIndex)"
+                                    class=" block py-2.5 px-0 w-full text-sm text-black bg-transparent  appearance-none dark:text-gray-400 border-gray-200 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                    <option disabled selected>اختر الخدمة</option>
+                                    <option *ngFor="let service of services" value="{{service._id}}">
+                                        {{service.Name}}</option>
+                                </select>
+                                <ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
+                                    <li class="flex items-center" *ngFor=" let detail of selectedValues[serviceIndex]">
+                                        <svg class="w-3.5 h-3.5 mr-2 text-green-500 dark:text-green-400 flex-shrink-0 mx-2"
+                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                            viewBox="0 0 20 20">
+                                            <path
+                                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                                        </svg>
+                                        {{detail}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-3 col-span-6 p-2 m-3 bg-yellow">
+                            <select dir="rtl" placeholder="Example placeholder" name="selectedValue" id="selectedValue"
+                                (change)="SelectedDevicesPrice($event ,serviceIndex)"
+                                class=" block py-2.5 px-0 w-full text-sm text-black bg-transparent  appearance-none dark:text-gray-400 border-gray-200 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                <option disabled selected>اختر الاجهزة</option>
+                                <option *ngFor="let device of Devices" value="{{device._id}}">
+
+                                    {{device.Title}}
+                                </option>
+                            </select>
+                            <div>
+                                <ul>
+                                    <div formArrayName="Devices">
+                                        <div class="mb-1 ms-4"
+                                            *ngFor="let skill of DeviceOffer(serviceIndex).controls; let j=index"
+                                            [formGroupName]="j">
+                                            <!-- <label for=" usrMobile{{skillIndex}}" class="form-label">جهاز
+                                            رقم{{skillIndex}}:</label> -->
+                                            <span
+                                                class="servicesInput inline-block  my-2 font-semibold text-green-900 leading-tight">
+                                                <div class="grid grid-cols-3">
+                                                    <span class="col-span-2">{{skill.value.Device.Title }}</span>
+
+                                                    <div class="col-span-1">
+                                                        <input type="string" placeholder=" عدد الاجهزة"
+                                                            class=" bg-white border border-gray-200 text-gray-900 text-sm   focus:border-primary-300 block w-full px-.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            name="Service{{serviceIndex+1}}"
+                                                            id="Service{{serviceIndex+1}}" formControlName="Quantity">
+                                                    </div>
+                                                </div>
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-row org-desc-parent-margin text-center p-1">
+                    <button mat-raised-button class="service rounded-lg p-1" (click)="addService()">اضافة خدمة
+                        اخري</button>
                 </div>
             </div>
             <div class="flex justify-center mt-8">

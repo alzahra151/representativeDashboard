@@ -12,6 +12,12 @@ export class RequestFormComponent implements OnInit {
   ReqForm: FormGroup
   services: any
   ReqID: string | null = '';
+  // SelectedDevices: [] = []
+  Devices: any
+  SelectedDevices: any[] = []
+  SelectedDevice: any[] = []
+  selectedValues: any[] = [];
+
   constructor(private reqService: RequestService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
     this.ReqForm = formBuilder.group({
       Name: ['', [Validators.required, Validators.minLength(3)]],
@@ -26,6 +32,8 @@ export class RequestFormComponent implements OnInit {
       Governorate: ['', [Validators.required]],
       City: ['', [Validators.required]],
       Services: formBuilder.array([this.addServiceGroup()]),
+      BranchesNumber: [1, [Validators.required]],
+      Notes: [''],
     })
 
 
@@ -61,30 +69,42 @@ export class RequestFormComponent implements OnInit {
   get Mobile() {
     return this.ReqForm.get('Mobile');
   }
-  Services(): FormArray {
+  get Services(): FormArray {
     return this.ReqForm.get('Services') as FormArray;
   }
-  newDevice(): FormControl {
-    return this.formBuilder.control('');
+  newDevice(): FormGroup {
+    return this.formBuilder.group({
+      Device: [''],
+      Quantity: [0],
+      SubTotalPrice: []
+    });
 
+  }
+  DeviceOffer(index: any): FormArray {
+
+    return this.Services.at(index).get(`Devices`) as FormArray;
   }
   addServiceGroup(): FormGroup {
     return this.formBuilder.group({
       Service: [''],
       Devices: this.formBuilder.array([]),
-      Notes: ['']
+
     });
   }
   DeviceInp(serviceIndex: number): FormArray {
-    return this.Services()
+    return this.Services
       .at(serviceIndex)
       .get('Devices') as FormArray;
   }
-  addDeviceInp(serviceIndex: number) {
-    this.DeviceInp(serviceIndex).push(this.newDevice());
+  addDeviceInp(serviceIndex: number, device: any) {
+    this.DeviceInp(serviceIndex).push(this.formBuilder.group({
+      Device: [device],
+      Quantity: [],
+      SubTotalPrice: []
+    }));
   }
   addService(): void {
-    this.Services().push(this.addServiceGroup());
+    this.Services.push(this.addServiceGroup());
   }
   GetServices() {
     this.reqService.GetServices().subscribe({
@@ -122,7 +142,43 @@ export class RequestFormComponent implements OnInit {
       }
     })
   }
+  getSeviceDevices(id: any, index: any) {
+    console.log(id)
+    const service = this.services.filter((service: any) => service._id === id)
+    console.log(service)
+    this.Devices = service[0].Devices
+    this.selectedValues[index] = service[0].Details;
+    console.log(this.selectedValues)
+    console.log(this.Devices)
+  }
+  SelectedService(event: any, index: any) {
+    const CopySelectedDevice = [...this.SelectedDevice]
+    console.log(this.SelectedDevice)
+    this.SelectedDevices[index - 1] = CopySelectedDevice
+    console.log(this.SelectedDevices)
+    const id = event.target?.value
+    console.log(id)
+    this.getSeviceDevices(id, index)
+  }
+
+  SelectedDevicesPrice(event: any, serviceIndex: any) {
+    console.log(serviceIndex)
+    const deviceID = event.target?.value
+    this.reqService.getDeviceById(deviceID).subscribe({
+      next: (data) => {
+        this.SelectedDevice.push(data)
+        // const CopySelectedDevice = [...this.SelectedDevice]
+        // console.log(this.SelectedDevice)
+        this.SelectedDevices[serviceIndex] =
+          console.log(this.SelectedDevices)
+        this.addDeviceInp(serviceIndex, data)
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
 
 
+  }
 
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Roles } from 'src/app/models/roles';
 import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-login',
@@ -10,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 export class LoginComponent {
   loginForm: FormGroup;
   userData: any
+  CurrentRole: Roles = Roles.Representative
   constructor(private user: UserService, private formBilder: FormBuilder, private router: Router) {
     this.loginForm = formBilder.group({
       Email: ['', [Validators.required]],
@@ -28,8 +30,14 @@ export class LoginComponent {
         const token = atob(this.userData.result.AccessToken.split('.')[1])
         console.log(JSON.parse(token))
         localStorage.setItem('FullName', this.userData.result.StoredRepresent.FullName)
-        localStorage.setItem('Role', this.userData.result.StoredRepresent.Role)
-        this.router.navigate(['/home'])
+        // localStorage.setItem('Role', this.userData.result.StoredRepresent.Role)
+        this.CurrentRole = this.userData.result.StoredRepresent.Role
+        if (this.CurrentRole === Roles.SalesManager) {
+          this.router.navigate(['/ManagerHome'])
+        } else {
+          this.router.navigate(['/RepresentHome'])
+        }
+
       },
       error: (err) => {
         console.log(err)

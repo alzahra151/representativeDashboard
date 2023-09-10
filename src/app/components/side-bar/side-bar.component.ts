@@ -1,5 +1,5 @@
 import { AuthService } from './../../services/auth.service';
-import { authGuard } from './../../guards/auth.guard';
+//
 import { Component } from '@angular/core';
 
 @Component({
