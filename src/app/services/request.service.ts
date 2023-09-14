@@ -1,6 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { PaymentPlan } from '../models/payment-plan';
+import { PriceOffer } from '../models/price-offer';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +40,13 @@ export class RequestService {
   getCommentedReqs() {
     return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/CommentedReqs`, this.options)
   }
-  getDeviceById(id :any){
+  getDeviceById(id: any) {
     return this.httpClient.get(`${environment.apiUrl}Device/${id}`);
+  }
+  getPaymentPlans(): Observable<PaymentPlan[]> {
+    return this.httpClient.get<PaymentPlan[]>(`${environment.apiUrl}PaymentPlan/getPaymentPlans`)
+  }
+  AddPriceOffer(data: any): Observable<PriceOffer> {
+    return this.httpClient.post<PriceOffer>(`${environment.apiUrl}PriceOffer/AddPriceOffer`, data)
   }
 }
