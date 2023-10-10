@@ -8,7 +8,7 @@ import { io } from 'socket.io-client'
 })
 export class CommentedReqComponent implements OnInit {
   requests: any
-  socket = io('https://varroxadministrationapi.onrender.com');
+  socket = io('https://varrox-system-apii.onrender.com');
   constructor(private reqService: RequestService) {
 
     this.socket.on('ReqChange', (change) => {

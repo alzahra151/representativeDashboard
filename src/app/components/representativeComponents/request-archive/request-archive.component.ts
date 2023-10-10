@@ -12,7 +12,7 @@ export class RequestArchiveComponent implements OnInit {
 
   requests: any
   EditedReq: any
-  socket = io('https://varroxadministrationapi.onrender.com');
+  socket = io('https://varrox-system-apii.onrender.com');
   constructor(private OfferService: OffersService, private reqSerice: RequestService) {
     this.socket.on('ReqChange', (change) => {
       console.log('User change:', change);
