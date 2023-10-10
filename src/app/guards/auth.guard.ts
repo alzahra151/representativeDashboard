@@ -1,4 +1,4 @@
-// import { Inject, Injectable, Injector } from '@angular/core';
+// import { Inject, Injector } from '@angular/core';
 // import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 // import { Observable } from 'rxjs';
 // import { AuthService } from '../services/auth.service';
@@ -44,9 +44,10 @@ export class AuthGuard implements CanActivateChild {
     private authService: AuthService
   ) { }
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    // console.log(this.authService.getUserRole(), "from guard")
-    if (this.authService.getUserRole() === Roles.SalesManager) {
+    console.log(this.authService.getUserRole(), "from guard")
+    if (this.authService.getUserRole() === Roles.SalesManager && childRoute.data['roles'] == Roles.SalesManager) {
       // this.router.navigate(['/home/AllRequestes'])
+
       return true;
     }
     this.router.navigate(['/ManagerHome'])

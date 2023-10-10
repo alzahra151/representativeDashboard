@@ -15,7 +15,7 @@ export class RequestService {
     this.options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'token': 'token ' + this.token
+        'token': 'token ' + localStorage.getItem('token')
       }),
     }
   }
@@ -28,6 +28,7 @@ export class RequestService {
     return this.httpClient.get(`${environment.apiUrl}Service/GetServices`)
   }
   get token() {
+    console.log(localStorage.getItem('token'))
     return localStorage.getItem('token')
   }
   GetReqDetails(id: any) {
@@ -37,8 +38,8 @@ export class RequestService {
   updateReq(id: any, data: any) {
     return this.httpClient.patch(`${environment.apiUrl}PriceOfferReq/${id}`, data)
   }
-  getCommentedReqs() {
-    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/CommentedReqs`, this.options)
+  getCommentedRepresentReqs() {
+    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/commented-represent-reqs`, this.options)
   }
   getDeviceById(id: any) {
     return this.httpClient.get(`${environment.apiUrl}Device/${id}`);
@@ -49,4 +50,42 @@ export class RequestService {
   AddPriceOffer(data: any): Observable<PriceOffer> {
     return this.httpClient.post<PriceOffer>(`${environment.apiUrl}PriceOffer/AddPriceOffer`, data)
   }
+  getManagerAprovedReq() {
+    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/salesMangersApprovedReq`)
+  }
+  getRejectedReqs() {
+    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/rejected-req`)
+  }
+  reqsCount() {
+    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/reqs-count`)
+  }
+  representArchiveReq() {
+    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/RepresenetitaveRequests`, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'token': 'token ' + localStorage.getItem('token')
+      }),
+    })
+  }
+  representAcceptedReqs() {
+    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/reprsentative-approved-req`, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'token': 'token ' + localStorage.getItem('token')
+      }),
+    })
+
+  }
+  representRejectedReqs() {
+    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/reprsentative-rejected-req`, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'token': 'token ' + localStorage.getItem('token')
+      }),
+    })
+
+  }
+  // representCommentedReqs() {
+
+  // }
 }

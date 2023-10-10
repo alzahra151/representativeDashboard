@@ -1,0 +1,31 @@
+<!-- <div class="flext m-auto justify-center gap-4 mb-4  mt-8  container" dir="rtl"> -->
+<app-req-details></app-req-details>
+<!-- <ng-container> -->
+<div class="container m-auto px-5 ">
+
+
+    <form [formGroup]="InitialMonyForm" class="bg-blue-50  border border-gray-150 w-full  mt-5 p-5 ">
+        <div class="md:flex md:items-center mb-6">
+            <div class="mb-6">
+                <label for="large-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    المبلغ المستحق قبل
+                    التركيب<span class="text-red-500">*</span>
+                </label>
+                <input type="text" id="large-input" placeholder="0.000.00 EGP" formControlName="InitialAmountOfMoney"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+        </div>
+        <div class="flex justify-center ">
+
+
+            <button (click)="SendReqWithAmountOfMony()" [disabled]="InitialMonyForm.invalid"
+                class="shadow bg-black hover:bg-purple-400 focus:shadow-outline focus:outline-none text-yellow-400 font-bold py-2 px-4 rounded"
+                type="button">
+                ارسال الطلب
+            </button>
+            <!-- {{InitialMonyForm.invalid | json}} -->
+        </div>
+    </form>
+</div>
+<!-- </ng-container> -->
+<!-- </div> -->
