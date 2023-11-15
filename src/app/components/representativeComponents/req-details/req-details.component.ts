@@ -45,8 +45,8 @@ export class ReqDetailsComponent implements OnInit {
   }
   downloadPDf(offerData: any) {
     this.spinner.show()
-    console.log(this.Request)
-    console.log(offerData)
+    // console.log(this.Request)
+    // console.log(offerData)
     this.PdfService.downloadPDF(offerData).subscribe({
       next: (x: any) => {
         var newBlob = new Blob([x], { type: "application/pdf" });
