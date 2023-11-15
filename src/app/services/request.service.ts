@@ -85,7 +85,12 @@ export class RequestService {
     })
 
   }
-  // representCommentedReqs() {
-
-  // }
+  representCompletedReq() {
+    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/representative-complete-reqs`, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'token': 'token ' + localStorage.getItem('token')
+      }),
+    })
+  }
 }

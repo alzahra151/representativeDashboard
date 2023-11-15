@@ -12,6 +12,8 @@ export class LoginComponent {
   loginForm: FormGroup;
   userData: any
   CurrentRole: Roles = Roles.Representative
+  loading: boolean = false
+  visible: boolean = false
   constructor(private user: UserService, private formBilder: FormBuilder, private router: Router) {
     this.loginForm = formBilder.group({
       Email: ['', [Validators.required]],
@@ -26,13 +28,15 @@ export class LoginComponent {
       next: (data) => {
         this.userData = data
         console.log(this.userData)
-        localStorage.setItem('token', this.userData.result.AccessToken)
-        const token = atob(this.userData.result.AccessToken.split('.')[1])
+        this.loading = true
+        localStorage.setItem('token', this.userData.AccessToken)
+        const token = atob(this.userData.AccessToken.split('.')[1])
         console.log(JSON.parse(token))
-        localStorage.setItem('FullName', this.userData.result.StoredRepresent.FullName)
-        localStorage.setItem('Role', this.userData.result.StoredRepresent.Role)
-        this.CurrentRole = this.userData.result.StoredRepresent.Role
+        localStorage.setItem('FullName', this.userData.StoredRepresent.FullName)
+        localStorage.setItem('Role', this.userData.StoredRepresent.Role)
+        this.CurrentRole = this.userData.StoredRepresent.Role
         if (this.CurrentRole === Roles.SalesManager) {
+
           this.router.navigate(['/ManagerHome'])
         } else {
           this.router.navigate(['/RepresentHome'])
@@ -41,7 +45,12 @@ export class LoginComponent {
       },
       error: (err) => {
         console.log(err)
+        this.showDialog()
       }
     })
+  }
+
+  showDialog() {
+    this.visible = true
   }
 }

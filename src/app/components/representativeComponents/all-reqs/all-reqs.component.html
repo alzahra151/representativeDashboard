@@ -1,0 +1,100 @@
+<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2  mb-4 lg:mx-5 md:mx-5 mt-8" dir="rtl">
+
+    <div class=" mt-5 p-2  items-center justify-center lg:mx-8 md:mx-4" *ngFor="let Request of reqs">
+        <div dir="rtl" [ngClass]="Request.Complete?Request.Rejected?'bg-red-50' :'bg-green-50':'bg-blue-50'"
+            class="   p-2 pt-2 bg-blue-50  border border-gray-150 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="grid grid-cols-6 ">
+                <span
+                    class="col-span-6 lg:col-span-3 inline-flex items-center justify-center justify-self-start  w-[2.5rem] h-[2.5rem] p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">كود{{Request?.Code}}
+                </span>
+            </div>
+            <div class="grid grid-cols-2 flex flex-nowrap mt-5">
+                <div class="col-span-2 md:col-span-2 lg:col-span-1 ">
+                    <div class="flex items-center">
+
+                        <span class="px-2 py-2  font-bold text-gray-700"><i class="pi pi-table mx-2"></i>الطلب</span>
+                        <hr class="flex-grow border-yellow-500 border-1 mx-2">
+                    </div>
+                    <div class="border-r-4 border-gray-900 px-2">
+                        <div class="grid grid-cols-4">
+                            <div class="col-span-2">اسم النشاط </div>
+                            <div class="col-span-2">: {{Request?.ActivityName}}</div>
+                        </div>
+                        <div class="grid grid-cols-4">
+                            <div class="col-span-2"> طبيعة النشاط </div>
+                            <div class="col-span-2">: {{Request?.ActivityNature}}</div>
+                        </div>
+                        <div class="grid grid-cols-4">
+                            <div class="col-span-2"> عنوان النشاط </div>
+                            <div class="col-span-2">: {{Request?.activityLocation}}</div>
+                        </div>
+                        <div class="grid grid-cols-4">
+                            <div class="col-span-2"> الدولة</div>
+                            <div class="col-span-2">:{{Request?.Country}}</div>
+                        </div>
+                        <div class="grid grid-cols-4">
+                            <div class="col-span-2"> المحافظة</div>
+                            <div class="col-span-2">: {{Request?.Governorate}}</div>
+                        </div>
+                        <div class="grid grid-cols-4">
+                            <div class="col-span-2"> المدينة</div>
+                            <div class="col-span-2">: {{Request?.City}}</div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-span-2 md:col-span-2 lg:col-span-1">
+                    <div class="flex items-center">
+
+                        <span [ngClass]="Request?.Accept ?'bg-green-100':Request?.Pending  ? 'bg-gray-200':'bg-red-70'"
+                            class="px-2 py-2  font-bold text-gray-700"> <i class="pi pi-user mx-2"
+                                style="color: black"></i>بيانات العميل </span>
+                        <hr class="flex-grow border-yellow-500 border-1 mx-2">
+                    </div>
+                    <div class="border-r-4 border-gray-900 ">
+
+                        <div class="flex">
+                            <div class="mx-2"> <i class="pi pi-user" style="color: black"></i></div>
+                            <div class=""> {{Request?.Name}}</div>
+                        </div>
+                        <div class="flex">
+
+                            <div class="mx-2"> <i class="pi   pi-mobile" style="color: rgb(48, 61, 241)"></i> </div>
+                            <div class=""> {{Request?.Mobile}}</div>
+                        </div>
+                        <div class="flex">
+                            <div class="mx-2"> <i class="pi  pi-phone" style="color: rgb(0, 0, 0)"></i> </div>
+                            <div class="">{{Request?.Phone}}</div>
+                        </div>
+                        <div class="flex">
+                            <div class="mx-2"> <i class="pi   pi-envelope" style="color: red"></i> </div>
+                            <div class="">{{Request?.Email}}</div>
+                        </div>
+                        <div class="flex">
+                            <div class="mx-2"> <i class="pi   pi-map-marker" style="color: green"></i> </div>
+                            <div class=""> {{Request?.Location}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="bg-yellow-400 p-1 mt-4">
+            <div class="flex  ">
+                <div class="mt-3  w-full">
+
+                    <div>المندوب : <span>{{Request.ReprsentativeID?.FullName}}</span></div>
+                    <div>التاريخ : <span dir="ltr">{{Request.createdAt | date}}</span></div>
+                    <div class="flex justify-center  mt-5">
+                        <button type="button" [routerLink]="['/RepresentHome/ReqDetails', Request._id]"
+                            routerLinkActive="router-link-active"
+                            class=" mx-5 text-white bg-black hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">التفاصيل</button>
+                        <!-- <button type="button" [routerLink]="['/RepresentHome/EditForm', Request._id]"
+                            class="mx-5 text-white bg-blue-600 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">تعديل
+                        </button> -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

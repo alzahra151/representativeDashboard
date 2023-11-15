@@ -12,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { OfferPDFComponent } from './components/offer-pdf/offer-pdf.component';
 import { DialogModule } from 'primeng/dialog';
-import { MessagesModule } from 'primeng/messages';
+// import { MessagesModule } from 'primeng/messages';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
@@ -44,6 +44,11 @@ import { RequestArchiveComponent } from './components/representativeComponents/r
 import { SideBareComponent } from './components/representativeComponents/side-bare/side-bare.component';
 import { RepresntHomeComponent } from './components/representativeComponents/represnt-home/represnt-home.component';
 import { MainReqCardComponent } from './components/representativeComponents/main-req-card/main-req-card.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { AllReqsComponent } from './components/representativeComponents/all-reqs/all-reqs.component';
+import { MessagesModule } from 'primeng/messages';
+// import { AllReqsComponent } from './components/representativeComponents/all-reqs/AllReqsComponent';
+
 // import { AllRequestesComponent } from './components/mangerComponents/all-requestes/all-requestes.component';
 
 @NgModule({
@@ -75,6 +80,7 @@ import { MainReqCardComponent } from './components/representativeComponents/main
     SideBareComponent,
     RepresntHomeComponent,
     MainReqCardComponent,
+    AllReqsComponent
 
   ],
   imports: [
@@ -89,14 +95,16 @@ import { MainReqCardComponent } from './components/representativeComponents/main
     ReactiveFormsModule,
     CommonModule,
     DialogModule,
-    MessagesModule,
+
     NgxExtendedPdfViewerModule,
     InputTextareaModule,
     DropdownModule,
     InputTextModule,
+    ProgressSpinnerModule,
     FormsModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    MessagesModule,
   ],
   providers: [AuthGuard, AdminGuard],
   bootstrap: [AppComponent]

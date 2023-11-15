@@ -1,14 +1,17 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RequestService } from 'src/app/services/request.service';
 import { PaymentPlan } from 'src/app/models/payment-plan';
 import { PriceOffer } from 'src/app/models/price-offer';
+import { io } from 'socket.io-client';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-request-form',
   templateUrl: './request-form.component.html',
-  styleUrls: ['./request-form.component.scss']
+  styleUrls: ['./request-form.component.scss'],
+  providers: [MessageService]
 })
 export class RequestFormComponent implements OnInit {
   ReqForm: FormGroup
@@ -23,7 +26,10 @@ export class RequestFormComponent implements OnInit {
   SelectedDevices: any[][] = []
   selected: any
   EditedReq: any;
-  constructor(private reqService: RequestService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
+
+  constructor(private reqService: RequestService, private formBuilder: FormBuilder, private route: ActivatedRoute,
+    private router: Router, private messageService: MessageService,
+    private primengConfig: PrimeNGConfig) {
     this.ReqForm = formBuilder.group({
       Name: ['', [Validators.required, Validators.minLength(3)]],
       Mobile: ['', [Validators.required]],
@@ -41,10 +47,12 @@ export class RequestFormComponent implements OnInit {
       PaymentPlan: ['', [Validators.required]],
       Notes: [''],
     })
+
   }
   ngOnInit(): void {
     this.GetServices()
     this.getPaymentPlans()
+    // this.markFormGroupTouched(this.ReqForm)
   }
 
   get ActivityName() {
@@ -108,7 +116,7 @@ export class RequestFormComponent implements OnInit {
   addDeviceInp(serviceIndex: number, device: any) {
     this.DeviceInp(serviceIndex).push(this.formBuilder.group({
       Device: [device._id],
-      Quantity: [],
+      Quantity: [, Validators.required],
       SubTotalPrice: []
     }));
 
@@ -128,6 +136,7 @@ export class RequestFormComponent implements OnInit {
     })
   }
   AddPriceoffer(sendToManager: Boolean) {
+
     // this.calculateServiceSubTotal()
     const offerData = { "Services": this.Services.value, "TotalPrice": this.TotalPriceOffer }
     console.log(offerData)
@@ -138,9 +147,13 @@ export class RequestFormComponent implements OnInit {
         if (sendToManager === true) {
           console.log(sendToManager)
           this.AddNewReq() //send request to managers
+          this.router.navigate(['/RepresentHome/requests'])
+
         } else {
           console.log(sendToManager)
           this.archiveRequest() // archieve req for representative
+          this.router.navigate(['/RepresentHome/requests-archieve'])
+
         }
       },
       error: (error) => {
@@ -166,6 +179,8 @@ export class RequestFormComponent implements OnInit {
 
   }
   archiveRequest() {
+    // this.router.navigate(['/requests'])
+
     const ReqData = { ...this.ReqForm.value, PriceOffer: this.PriceOffer._id }
     this.reqService.AddPriceOfferReq(ReqData).subscribe({
       next: (res) => {
@@ -234,7 +249,6 @@ export class RequestFormComponent implements OnInit {
       console.log(this.Services?.controls[i].get('serviceTotalPrice'))
     }
     this.TotalPriceOffer = TotalPrice
-
   }
   getPaymentPlans() {
     this.reqService.getPaymentPlans().subscribe({
@@ -254,7 +268,6 @@ export class RequestFormComponent implements OnInit {
   deleteService(serviceIndex: number) {
     this.Services.removeAt(serviceIndex)
   }
-
 
 
 

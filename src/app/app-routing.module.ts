@@ -24,6 +24,7 @@ import { AllRequestsComponent } from './components/mangerComponents/all-requests
 import { RepresntHomeComponent } from './components/representativeComponents/represnt-home/represnt-home.component';
 import { AcceptedReqsComponent } from './components/representativeComponents/accepted-reqs/accepted-reqs.component';
 import { RejectedReqsComponent } from './components/representativeComponents/rejected-reqs/rejected-reqs.component';
+import { AllReqsComponent } from './components/representativeComponents/all-reqs/all-reqs.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent, },
@@ -60,6 +61,8 @@ const routes: Routes = [
         },
       },
       { path: "RequestForm", component: RequestFormComponent },
+      { path: "requests", component: AllReqsComponent },
+
       { path: "approved-reqs", component: AcceptedReqsComponent },
       { path: "rejected-reqs", component: RejectedReqsComponent },
       // { path: "commented-reqs", component: Comm },

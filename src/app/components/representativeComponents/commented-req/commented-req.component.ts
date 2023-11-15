@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { io } from 'socket.io-client'
 @Component({
@@ -6,7 +6,7 @@ import { io } from 'socket.io-client'
   templateUrl: './commented-req.component.html',
   styleUrls: ['./commented-req.component.scss']
 })
-export class CommentedReqComponent implements OnInit {
+export class CommentedReqComponent implements OnInit, OnDestroy {
   requests: any
   socket = io('https://varrox-system-apii.onrender.com');
   constructor(private reqService: RequestService) {
@@ -24,6 +24,9 @@ export class CommentedReqComponent implements OnInit {
     // throw new Error('Method not implemented.');
     this.getCommentedReqs()
   }
+  ngOnDestroy() {
+    this.socket.off('ReqChange');
+  }
   getCommentedReqs() {
     this.reqService.getCommentedRepresentReqs().subscribe({
       next: (data) => {
@@ -34,5 +37,6 @@ export class CommentedReqComponent implements OnInit {
       }
     })
   }
+
 }
 

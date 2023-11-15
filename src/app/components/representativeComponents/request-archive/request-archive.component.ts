@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { io } from 'socket.io-client';
 import { OffersService } from 'src/app/services/offers.service';
 import { RequestService } from 'src/app/services/request.service';
@@ -8,7 +8,7 @@ import { RequestService } from 'src/app/services/request.service';
   templateUrl: './request-archive.component.html',
   styleUrls: ['./request-archive.component.scss']
 })
-export class RequestArchiveComponent implements OnInit {
+export class RequestArchiveComponent implements OnInit, OnDestroy {
 
   requests: any
   EditedReq: any
@@ -21,6 +21,9 @@ export class RequestArchiveComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getRequests()
+  }
+  ngOnDestroy() {
+    this.socket.off('ReqChange');
   }
   getRequests() {
     this.reqSerice.representArchiveReq().subscribe({

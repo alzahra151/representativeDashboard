@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { io } from 'socket.io-client';
 import { PaymentPlan } from 'src/app/models/payment-plan';
 import { PriceOffer } from 'src/app/models/price-offer';
 import { RequestService } from 'src/app/services/request.service';
@@ -25,9 +26,11 @@ export class EditFormComponent implements OnInit {
   selected: any
   // ReqID: string | null = '';
   EditedReq: any
+  socket = io('https://varrox-system-apii.onrender.com');
+
   constructor(private reqService: RequestService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
     this.ReqForm = formBuilder.group({
-      Name: ['', [Validators.required, Validators.minLength(3)]],
+      Name: ['', [Validators.required, Validators.minLength(2)]],
       Mobile: ['', [Validators.required]],
       Phone: [''],
       Email: [''],
@@ -44,7 +47,11 @@ export class EditFormComponent implements OnInit {
       PaymentPlan: ['', [Validators.required]],
       Notes: [''],
     })
-
+    this.socket.on('ReqChange', (change) => {
+      console.log('User change:', change);
+      // this.getRequests()
+      // console.log(change)
+    });
   }
   ngOnInit(): void {
     // get id param for edite req 
