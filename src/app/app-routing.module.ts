@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
+// import { LoginComponent } from './components/login/LoginComponent';
 import { OfferPDFComponent } from './components/offer-pdf/offer-pdf.component';
 // import { AllRequestesComponent } from './components/all-requestes/all-requestes.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -25,6 +25,7 @@ import { RepresntHomeComponent } from './components/representativeComponents/rep
 import { AcceptedReqsComponent } from './components/representativeComponents/accepted-reqs/accepted-reqs.component';
 import { RejectedReqsComponent } from './components/representativeComponents/rejected-reqs/rejected-reqs.component';
 import { AllReqsComponent } from './components/representativeComponents/all-reqs/all-reqs.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent, },

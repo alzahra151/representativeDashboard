@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { ButtonModule } from "primeng/button";
 import { SidebarModule } from "primeng/sidebar";
 // import { MainLayoutComponent } from './components/mangerComponents/main-layout/main-layout.component';
-import { LoginComponent } from './components/login/login.component';
+// import { LoginComponent } from './components/login/LoginComponent';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -48,6 +48,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { AllReqsComponent } from './components/representativeComponents/all-reqs/all-reqs.component';
 import { MessagesModule } from 'primeng/messages';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { LoginComponent } from './components/login/login.component';
 // import { AllReqsComponent } from './components/representativeComponents/all-reqs/AllReqsComponent';
 
 // import { AllRequestesComponent } from './components/mangerComponents/all-requestes/all-requestes.component';

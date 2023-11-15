@@ -80,7 +80,8 @@ export class ReqDetailsComponent implements OnInit, OnDestroy {
 
   }
   ngOnDestroy() {
-    // this.PdfService.downloadPDF().unsubscribe()
+    this.spinner.hide()
+
   }
 
 }
