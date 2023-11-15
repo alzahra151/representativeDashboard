@@ -1,14 +1,28 @@
 <!DOCTYPE html>
+<p-sidebar [(visible)]="gfg" [baseZIndex]="10000" position="right" styleClass="p-sidebar-sm" dir="rtl">
+    <app-manager-side-bar></app-manager-side-bar>
+</p-sidebar>
 <div class=" m-0 p-0 ">
     <div class="flex m-0 p-0 flex-nowrap grid grid-cols-6" dir="rtl">
         <div class="lg:col-span-1 bg-red-500 pb-8 m-0 lg:block top-0 right-0 hidden h-screen">
             <!-- <app-side-bar class="h-screen"></app-side-bar> -->
-            <app-manager-side-bar></app-manager-side-bar>
+            <app-manager-side-bar class="h-screen"></app-manager-side-bar>
+
         </div>
         <div class="lg:col-span-5 col-span-6   m-0  ">
             <div class="flex m-0 p-0 flex-col w-full  ">
                 <div class="w-full p-0 bg-white shadow-lg">
-                    <app-navbar></app-navbar>
+                    <!-- <app-navbar></app-navbar> -->
+                    <div class=" flex justify-end " dir="rtl">
+                        <a routerLink="/Elabd/home" class="flex items-center pb-3 ps-2 text-decoration-none mx-2 my-2">
+                            <span class="fs-5 d-none d-sm-inline text-dark">{{AgentName}}</span>
+                            <img [src]="AgentImage" class="rounded-full m-2" style="width: 50px;height:50px" />
+                        </a>
+                        <button (click)="gfg = true" style="color: black" class=" mx-4 lg:hidden block ">
+                            <i class="pi pi-align-left"></i>
+                        </button>
+                    </div>
+
                 </div>
                 <div class="pe-lg-4 ps-lg-4 mt-2">
                     <router-outlet></router-outlet>

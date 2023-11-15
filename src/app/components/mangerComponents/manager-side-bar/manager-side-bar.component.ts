@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./manager-side-bar.component.scss']
 })
 export class ManagerSideBarComponent {
-
+  gfg: boolean = false
 }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -47,6 +47,7 @@ import { MainReqCardComponent } from './components/representativeComponents/main
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { AllReqsComponent } from './components/representativeComponents/all-reqs/all-reqs.component';
 import { MessagesModule } from 'primeng/messages';
+import { NgxSpinnerModule } from "ngx-spinner";
 // import { AllReqsComponent } from './components/representativeComponents/all-reqs/AllReqsComponent';
 
 // import { AllRequestesComponent } from './components/mangerComponents/all-requestes/all-requestes.component';
@@ -95,7 +96,7 @@ import { MessagesModule } from 'primeng/messages';
     ReactiveFormsModule,
     CommonModule,
     DialogModule,
-
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
     NgxExtendedPdfViewerModule,
     InputTextareaModule,
     DropdownModule,
@@ -106,6 +107,7 @@ import { MessagesModule } from 'primeng/messages';
     RouterModule,
     MessagesModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [AuthGuard, AdminGuard],
   bootstrap: [AppComponent]
 })

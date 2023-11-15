@@ -10,4 +10,7 @@ export class RepresentLayoutComponent {
   get AgentName() {
     return localStorage.getItem('FullName')
   }
+  get AgentImage() {
+    return localStorage.getItem('Image')
+  }
 }

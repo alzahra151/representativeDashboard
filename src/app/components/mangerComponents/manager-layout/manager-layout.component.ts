@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./manager-layout.component.scss']
 })
 export class ManagerLayoutComponent {
-
+  gfg: boolean = false
+  get AgentName() {
+    return localStorage.getItem('FullName')
+  }
+  get AgentImage() {
+    return localStorage.getItem('Image')
+  }
 }
