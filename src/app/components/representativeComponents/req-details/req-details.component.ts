@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -11,7 +11,7 @@ import { RequestService } from 'src/app/services/request.service';
   templateUrl: './req-details.component.html',
   styleUrls: ['./req-details.component.scss']
 })
-export class ReqDetailsComponent implements OnInit {
+export class ReqDetailsComponent implements OnInit, OnDestroy {
   ReqID: any
   Request: any
   pdfUrl: any
@@ -32,6 +32,7 @@ export class ReqDetailsComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.userRole)
     this.getReqDetails()
+    this.spinner.hide()
   }
   getReqDetails() {
     this.reqService.GetReqDetails(this.ReqID).subscribe({
@@ -77,6 +78,9 @@ export class ReqDetailsComponent implements OnInit {
       },
     })
 
+  }
+  ngOnDestroy() {
+    // this.PdfService.downloadPDF().unsubscribe()
   }
 
 }
