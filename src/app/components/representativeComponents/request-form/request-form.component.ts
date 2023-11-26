@@ -46,6 +46,7 @@ export class RequestFormComponent implements OnInit {
       BranchesNumber: [, [Validators.required]],
       PaymentPlan: ['', [Validators.required]],
       Notes: [''],
+      TotalCopies: []
     })
 
   }
@@ -229,7 +230,7 @@ export class RequestFormComponent implements OnInit {
   }
   calculateServiceSubTotal() {
     let TotalPrice = 0
-
+    let totalCopies = 0
     for (let i = 0; i < this.Services.length; i++) {
       let serviceTotalPrice = 0
       for (let j = 0; j < this.DeviceOffer(i).length; j++) {
@@ -241,6 +242,7 @@ export class RequestFormComponent implements OnInit {
         subTotalControl?.patchValue(subTotal)
         TotalPrice = TotalPrice + subTotalControl?.value
         serviceTotalPrice = serviceTotalPrice + subTotal
+        totalCopies = totalCopies + quentity
       }
       // serviceTotalPrice = serviceTotalPrice+
       // console.log(this.services.controls.get('serviceTotalPrice'))
@@ -249,6 +251,7 @@ export class RequestFormComponent implements OnInit {
       console.log(this.Services?.controls[i].get('serviceTotalPrice'))
     }
     this.TotalPriceOffer = TotalPrice
+    this.ReqForm.controls['TotalCopies'].patchValue(totalCopies)
   }
   getPaymentPlans() {
     this.reqService.getPaymentPlans().subscribe({

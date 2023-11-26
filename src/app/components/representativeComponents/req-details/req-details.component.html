@@ -106,13 +106,45 @@
 
                 <div *ngFor="let service of Request?.PriceOffer.Services"
                     class=" lg:p-2 md:p-2 pt-2  text-black md:mx-3 lg:mx-3  dark:bg-gray-800 dark:border-gray-700">
+                    <div class="col-span-1  p-0  m-2 border border-gray-400">
+                        <div class=" ">
+                            <div class="p-1 bg-gray-100">
+                                <h2><i class="pi pi-book"></i>{{service.Service?.Name}}
+                                </h2>
+                            </div>
+                            <span
+                                class="servicesInput bg-green-200 flex grid grid-cols-8 inline-block my-2 font-semibold text-green-900 leading-tight"
+                                *ngFor="let device of service?.Devices">
+                                <div class="col-span-6">
+                                    <span class=" items-center flex"><i class="mx-2 mb-2 pi pi-desktop"
+                                            style="color:blue"></i>
 
-                    <div class="flex justify-center  text-center ">
+                                        <div class="  w-8 px-1 border border-gray-200 text-gray-900 text-sm focus:border-primary-300 block   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            name="" id="">{{device?.Quantity}}</div>
+                                        <span>{{device.Device?.Title}}</span>
+
+                                    </span>
+
+                                </div>
+                                <h4 class="col-span-2">{{device?.SubTotalPrice}} EGP</h4>
+
+                            </span>
+
+
+                            <!-- </span> -->
+                        </div>
+                        <div class="flex justify-start px-5 py-1" dir="ltr">
+                            Sub Total : {{service.serviceTotalPrice | currency:"EGP"}}
+                        </div>
+
+
+                    </div>
+                    <!-- <div class="flex justify-center  text-center ">
                         <h5 class=" bg-black text-white rounded px-5">الخدمة</h5>
                     </div>
                     <div class="grid grid-cols-5 ">
 
-                        <h4 class="col-span-5 p-3 flex ps-2 bg-gray-100 text-black">{{service.Service.Name}}</h4>
+                        <h4 class="col-span-5 p-3 flex ps-2 bg-gray-100 text-black">{{service.Service?.Name}}</h4>
                         <div class=" flex">
                             <h5 class="  bg-yellow-300 text-white rounded px-5  "> الاجهزة</h5>
                         </div>
@@ -121,25 +153,26 @@
 
                             <span
                                 class="servicesInput flex grid grid-cols-8 inline-block my-2 font-semibold text-green-900 leading-tight"
-                                *ngFor="let device of service.Devices">
+                                *ngFor="let device of service?.Devices">
                                 <div class="col-span-6">
                                     <span class=" items-center flex"><i class="mx-2 mb-2 pi pi-desktop"
                                             style="color:blue"></i>
 
                                         <div class="  w-8 px-1 border border-gray-200 text-gray-900 text-sm focus:border-primary-300 block   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            name="" id="">{{device.Quantity}}</div>
-                                        <span>{{device.Device.Title}}</span>
+                                            name="" id="">{{device?.Quantity}}</div>
+                                        <span>{{device.Device?.Title}}</span>
 
                                     </span>
 
                                 </div>
-                                <h4 class="col-span-2">{{device.SubTotalPrice}} EGP</h4>
+                                <h4 class="col-span-2">{{device?.SubTotalPrice}} EGP</h4>
 
                             </span>
 
 
                         </span>
-                    </div>
+                    </div> -->
+
                     <hr class="flex-grow border-yellow-500 border-1 mx-2 mt-8 ">
                 </div>
                 <div class="p-3">

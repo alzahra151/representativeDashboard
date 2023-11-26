@@ -38,6 +38,12 @@ export class RequestService {
   updateReq(id: any, data: any) {
     return this.httpClient.patch(`${environment.apiUrl}PriceOfferReq/${id}`, data)
   }
+  updatePriceOffer(id: any, data: any) {
+    return this.httpClient.patch(`${environment.apiUrl}PriceOffer/${id}`, data)
+  }
+  updatePriceOfferService(offerId: any, data: any) {
+    return this.httpClient.patch(`${environment.apiUrl}PriceOffer/${offerId}/service`, data)
+  }
   getCommentedRepresentReqs() {
     return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/commented-represent-reqs`, this.options)
   }
