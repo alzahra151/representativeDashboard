@@ -29,7 +29,12 @@ export class OffersService {
   getRepReqs() {
     return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/RepresenetitaveRequests`, this.httpOptions)
   }
-  getAllReq() {
-    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/SalesMangerRequests`, this.httpOptions)
+  getAllReq(limit: any, page: any) {
+    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/SalesMangerRequests?limit=${limit}&page=${page}`, this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'token': `token ${this.token || ''}`
+      })
+    })
   }
 }

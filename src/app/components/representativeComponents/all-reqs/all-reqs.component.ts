@@ -13,7 +13,11 @@ export class AllReqsComponent implements OnInit {
   reqs: any
   constructor(private reqService: RequestService) { }
   ngOnInit(): void {
-    this.reqService.representCompletedReq().subscribe({
+    this.getReqs(5, 0)
+  }
+
+  getReqs(limit: any, page: any) {
+    this.reqService.representCompletedReq(limit, page).subscribe({
       next: (data) => {
         this.reqs = data
         console.log(this.reqs)
@@ -23,5 +27,9 @@ export class AllReqsComponent implements OnInit {
       }
     })
   }
-
+  onPageChange(event: any) {
+    console.log(event)
+    console.log(event.page)
+    this.getReqs(event.rows, event.page)
+  }
 }

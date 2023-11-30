@@ -16,17 +16,17 @@ export class RequestArchiveComponent implements OnInit, OnDestroy {
   constructor(private OfferService: OffersService, private reqSerice: RequestService) {
     this.socket.on('ReqChange', (change) => {
       console.log('User change:', change);
-      this.getRequests()
+      // this.getRequests(5, 0)
     });
   }
   ngOnInit(): void {
-    this.getRequests()
+    this.getRequests(5, 0)
   }
   ngOnDestroy() {
     this.socket.off('ReqChange');
   }
-  getRequests() {
-    this.reqSerice.representArchiveReq().subscribe({
+  getRequests(limit: any, page: any) {
+    this.reqSerice.representArchiveReq(limit, page).subscribe({
       next: (data) => {
         this.requests = data
         console.log(this.requests)
@@ -38,5 +38,9 @@ export class RequestArchiveComponent implements OnInit, OnDestroy {
     })
   }
 
-
+  onPageChange(event: any) {
+    console.log(event)
+    console.log(event.page)
+    this.getRequests(event.rows, event.page)
+  }
 }

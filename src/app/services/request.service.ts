@@ -65,8 +65,8 @@ export class RequestService {
   reqsCount() {
     return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/reqs-count`)
   }
-  representArchiveReq() {
-    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/RepresenetitaveRequests`, {
+  representArchiveReq(limit: any, page: any) {
+    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/RepresenetitaveRequests?limit=${limit}&page=${page}`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'token': 'token ' + localStorage.getItem('token')
@@ -91,8 +91,8 @@ export class RequestService {
     })
 
   }
-  representCompletedReq() {
-    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/representative-complete-reqs`, {
+  representCompletedReq(limit: any, page: any) {
+    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/representative-complete-reqs?limit=${limit}&page=${page}`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'token': 'token ' + localStorage.getItem('token')

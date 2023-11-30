@@ -26,7 +26,7 @@ export class RequestFormComponent implements OnInit {
   SelectedDevices: any[][] = []
   selected: any
   EditedReq: any;
-
+  TotalCopies: number = 0
   constructor(private reqService: RequestService, private formBuilder: FormBuilder, private route: ActivatedRoute,
     private router: Router, private messageService: MessageService,
     private primengConfig: PrimeNGConfig) {
@@ -137,9 +137,8 @@ export class RequestFormComponent implements OnInit {
     })
   }
   AddPriceoffer(sendToManager: Boolean) {
-
     // this.calculateServiceSubTotal()
-    const offerData = { "Services": this.Services.value, "TotalPrice": this.TotalPriceOffer }
+    const offerData = { "Services": this.Services.value, "TotalPrice": this.TotalPriceOffer, "TotalCopies": this.TotalCopies }
     console.log(offerData)
     this.reqService.AddPriceOffer(offerData).subscribe({
       next: (value) => {
@@ -149,12 +148,10 @@ export class RequestFormComponent implements OnInit {
           console.log(sendToManager)
           this.AddNewReq() //send request to managers
           this.router.navigate(['/RepresentHome/requests'])
-
         } else {
           console.log(sendToManager)
           this.archiveRequest() // archieve req for representative
           this.router.navigate(['/RepresentHome/requests-archieve'])
-
         }
       },
       error: (error) => {
@@ -165,7 +162,6 @@ export class RequestFormComponent implements OnInit {
   AddNewReq() {
     console.log(this.ReqID)
     const req = { ...this.ReqForm.value, Complete: true, PriceOffer: this.PriceOffer._id, Comment: null }
-
     this.reqService.AddPriceOfferReq(req).subscribe({
       next: (res) => {
         console.log('sucess', res)
@@ -176,12 +172,9 @@ export class RequestFormComponent implements OnInit {
         console.log(err)
       }
     })
-
-
   }
   archiveRequest() {
     // this.router.navigate(['/requests'])
-
     const ReqData = { ...this.ReqForm.value, PriceOffer: this.PriceOffer._id }
     this.reqService.AddPriceOfferReq(ReqData).subscribe({
       next: (res) => {
@@ -236,7 +229,12 @@ export class RequestFormComponent implements OnInit {
       for (let j = 0; j < this.DeviceOffer(i).length; j++) {
         const quentity = this.DeviceOffer(i)?.controls[j]?.value.Quantity
         const DeviceID = this.DeviceOffer(i)?.controls[j]?.value.Device
+        const Device = this.DeviceInp(i)?.controls[j]?.value
+
+        console.log(DeviceID, Device)
         const device = this.selectedValues[i].Devices.find((device: any) => device._id == DeviceID)
+        console.log(this.SelectedDevices)
+        console.log(device)
         const subTotal = quentity * JSON.parse(device.Price)
         let subTotalControl = this.DeviceOffer(i)?.controls[j].get('SubTotalPrice')
         subTotalControl?.patchValue(subTotal)
@@ -251,7 +249,11 @@ export class RequestFormComponent implements OnInit {
       console.log(this.Services?.controls[i].get('serviceTotalPrice'))
     }
     this.TotalPriceOffer = TotalPrice
-    this.ReqForm.controls['TotalCopies'].patchValue(totalCopies)
+    // this.ReqForm.controls['TotalCopies'].patchValue(totalCopies)
+    this.TotalCopies = totalCopies
+    console.log(this.TotalCopies)
+    console.log(this.TotalPriceOffer)
+
   }
   getPaymentPlans() {
     this.reqService.getPaymentPlans().subscribe({

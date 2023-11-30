@@ -1,1 +1,10 @@
-<app-request-card [requests]="Requestes"></app-request-card>
+<p-paginator [pageLinkSize]="Requestes?.totalPages" [rows]="Requestes?.limit" [totalRecords]="Requestes?.count"
+    [first]="1" (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="[5 ,10, 15]" dir="ltr">
+</p-paginator>
+
+<app-request-card [requests]="Requestes?.requests"></app-request-card>
+<div class="w-full p-4">
+    <p-paginator [pageLinkSize]="Requestes?.totalPages" [rows]="Requestes?.limit" [totalRecords]="Requestes?.count"
+        [first]="1" (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="[5 ,10, 15]" dir="ltr">
+    </p-paginator>
+</div>

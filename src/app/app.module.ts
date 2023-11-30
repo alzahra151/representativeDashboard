@@ -49,6 +49,8 @@ import { AllReqsComponent } from './components/representativeComponents/all-reqs
 import { MessagesModule } from 'primeng/messages';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { LoginComponent } from './components/login/login.component';
+import { PaginatorModule } from "primeng/paginator";
+
 // import { AllReqsComponent } from './components/representativeComponents/all-reqs/AllReqsComponent';
 
 // import { AllRequestesComponent } from './components/mangerComponents/all-requestes/all-requestes.component';
@@ -107,6 +109,7 @@ import { LoginComponent } from './components/login/login.component';
     SharedModule,
     RouterModule,
     MessagesModule,
+    PaginatorModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [AuthGuard, AdminGuard],

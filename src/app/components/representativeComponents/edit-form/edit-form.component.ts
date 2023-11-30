@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
 import { io } from 'socket.io-client';
 import { PaymentPlan } from 'src/app/models/payment-plan';
 import { PriceOffer } from 'src/app/models/price-offer';
@@ -26,9 +27,10 @@ export class EditFormComponent implements OnInit {
   selected: any
   // ReqID: string | null = '';
   EditedReq: any
+  TotalCopies: number = 0
   socket = io('https://varrox-system-apii.onrender.com');
 
-  constructor(private reqService: RequestService, private formBuilder: FormBuilder, private route: ActivatedRoute) {
+  constructor(private reqService: RequestService, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router) {
     this.ReqForm = formBuilder.group({
       Name: ['', [Validators.required, Validators.minLength(2)]],
       Mobile: ['', [Validators.required]],
@@ -45,7 +47,7 @@ export class EditFormComponent implements OnInit {
       // PriceOffer: [''],
       BranchesNumber: [, [Validators.required]],
       PaymentPlan: ['', [Validators.required]],
-      Notes: [''],
+      Notes: [],
     })
     this.socket.on('ReqChange', (change) => {
       console.log('User change:', change);
@@ -112,6 +114,7 @@ export class EditFormComponent implements OnInit {
     return this.formBuilder.group({
       Service: [''],
       Devices: this.formBuilder.array([]),
+      serviceTotalPrice: []
     });
   }
   DeviceInp(serviceIndex: number): FormArray {
@@ -119,8 +122,13 @@ export class EditFormComponent implements OnInit {
       .at(serviceIndex)
       .get('Devices') as FormArray;
   }
-  addDeviceInp(serviceIndex: number, data: any) {
-    this.DeviceInp(serviceIndex).push(this.newDevice());
+  addDeviceInp(serviceIndex: number, device: any) {
+    this.DeviceInp(serviceIndex).push(this.formBuilder.group({
+      Device: [device._id],
+      Quantity: [],
+      SubTotalPrice: []
+    }));
+
   }
   addService(): void {
     this.Services().push(this.addServiceGroup());
@@ -137,46 +145,59 @@ export class EditFormComponent implements OnInit {
     })
   }
   AddNewReq() {
-
     const req = { ...this.ReqForm.value, Complete: true, Comment: null }
+    const offerData = { "Services": this.Services().value, "TotalPrice": this.TotalPriceOffer, "TotalCopies": this.TotalCopies }
+    forkJoin([
+      this.reqService.updateReq(this.EditedReq._id, req),
+      this.reqService.updatePriceOffer(this.EditedReq.PriceOffer._id, offerData)
+    ]).subscribe(
+      ([resultFromFirst, resultFromSecond]) => {
+        console.log('update request result:', resultFromFirst);
+        console.log('update offer result:', resultFromSecond);
+        this.router.navigate(['/RepresentHome/requests'])
 
-    this.reqService.updateReq(this.EditedReq._id, req).subscribe({
-      next: (res) => {
-        console.log('sucess', res)
-        this.ReqForm.reset()
       },
-      error: (err) => {
-        console.log(err)
+      error => {
+        console.error('Error:', error);
       }
-    })
+    );
   }
   archiveRequest() {
+    const offerData = { "Services": this.Services().value, "TotalPrice": this.TotalPriceOffer, "TotalCopies": this.TotalCopies }
+    forkJoin([
+      this.reqService.updateReq(this.EditedReq._id, this.ReqForm.value),
+      this.reqService.updatePriceOffer(this.EditedReq.PriceOffer._id, offerData)
+    ]).subscribe(
+      ([resultFromFirst, resultFromSecond]) => {
+        console.log('update request result:', resultFromFirst);
+        console.log('update offer result:', resultFromSecond);
+        this.router.navigate(['/RepresentHome/requests-archieve'])
 
-    this.reqService.updateReq(this.EditedReq._id, this.ReqForm.value).subscribe({
-      next: (res) => {
-        console.log('sucess', res)
-        this.ReqForm.reset()
-        this.Services().controls.forEach((control) => {
-          control.reset();
-        });
       },
-      error: (err) => {
-        console.log(err)
+      error => {
+        console.error('Error:', error);
       }
-    })
+    );
   }
 
   setFormValues() {
     const formValues: any = {};
     this.Services().clear()
-
+    let TotalPrice = 0
+    let totalCopies = 0
     for (const obj of this.EditedReq?.PriceOffer?.Services) {
       const newItemIndex = this.Services().length;
       this.Services().push(this.addServiceGroup())
+      // this.calculateServiceSubTotal()
       for (const obj2 of obj.Devices) {
         this.DeviceInp(newItemIndex).push(this.newDevice())
+        console.log(this.Services().length)
+        // this.calculateServiceSubTotal()
       }
+      console.log(this.Services().length)
+
     }
+    console.log(this.Services().length)
     //set edited item values to form value
     for (const key in this.ReqForm.controls) {
       if (this.ReqForm.controls.hasOwnProperty(key) && this.EditedReq.hasOwnProperty(key)) {
@@ -189,7 +210,6 @@ export class EditFormComponent implements OnInit {
         formValues['Services'] = []
         console.log(this.EditedReq.PriceOffer)
         this.EditedReq['PriceOffer'].Services.map((obj: any, index: any) => {
-
           console.log(obj)
           const devices = obj.Devices.map(({ Device, Quantity, SubTotalPrice }: any) => ({
             Device: Device._id,
@@ -197,16 +217,16 @@ export class EditFormComponent implements OnInit {
             SubTotalPrice,
           }));
           console.log(devices)
-          formValues['Services'][index] = { Service: obj.Service._id, Devices: devices }
+          formValues['Services'][index] = { Service: obj.Service._id, Devices: devices, serviceTotalPrice: obj.serviceTotalPrice }
           this.getSeviceDevices(obj.Service._id, index)
           this.SelectedDevices[index] = obj.Devices.map((device: any) => device.Device)
         });
 
         continue;
       }
-
     }
     this.ReqForm.setValue(formValues);
+    // this.calculateServiceSubTotal()
   }
   getReqById() {
     this.reqService.GetReqDetails(this.ReqID).subscribe({
@@ -237,7 +257,7 @@ export class EditFormComponent implements OnInit {
     this.clearDevicesFormArray(index) //clear devices when change service
     const id = event.target?.value
     this.getSeviceDevices(id, index)
-    if (this.SelectedDevices.length < this.Services.length) this.SelectedDevices.push([]) //push empty array from new devices for selected service
+    if (this.SelectedDevices.length < this.Services().length) this.SelectedDevices.push([]) //push empty array from new devices for selected service
   }
 
   SelectedDevicesPrice(event: any, serviceIndex: any) {
@@ -271,18 +291,27 @@ export class EditFormComponent implements OnInit {
   // }
   calculateServiceSubTotal() {
     let TotalPrice = 0
-    for (let i = 0; i < this.Services.length; i++) {
+    let totalCopies = 0
+    for (let i = 0; i < this.Services().length; i++) {
+      let serviceTotalPrice = 0
       for (let j = 0; j < this.DeviceInp(i).length; j++) {
         const quentity = this.DeviceInp(i)?.controls[j]?.value.Quantity
         const DeviceID = this.DeviceInp(i)?.controls[j]?.value.Device
-        const device = this.selectedValues[i].Devices.find((device: any) => device._id == DeviceID)
+        const device = this.selectedValues[i].Devices.find((device: any) => device._id === DeviceID)
         const subTotal = quentity * JSON.parse(device.Price)
         let subTotalControl = this.DeviceInp(i)?.controls[j].get('SubTotalPrice')
         subTotalControl?.patchValue(subTotal)
         TotalPrice = TotalPrice + subTotalControl?.value
+        serviceTotalPrice = serviceTotalPrice + subTotal
+        totalCopies = totalCopies + quentity
       }
+      this.Services()?.controls[i]?.get('serviceTotalPrice')?.patchValue(serviceTotalPrice)
+      console.log(this.Services()?.controls[i].get('serviceTotalPrice'))
     }
     this.TotalPriceOffer = TotalPrice
+    this.TotalCopies = totalCopies
+    console.log(this.TotalCopies)
+    console.log(this.TotalPriceOffer)
 
   }
   getPaymentPlans() {

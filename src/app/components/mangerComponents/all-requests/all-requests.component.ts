@@ -7,15 +7,16 @@ import { OffersService } from 'src/app/services/offers.service';
   styleUrls: ['./all-requests.component.scss']
 })
 export class AllRequestsComponent {
-  Requestes: any
+  Requestes: any;
   constructor(private reqService: OffersService) {
 
   }
   ngOnInit(): void {
-    this.getAllReq()
+    this.getAllReq(5, 0)
   }
-  getAllReq() {
-    this.reqService.getAllReq().subscribe({
+  getAllReq(limit: number, page: number) {
+    this.reqService.getAllReq(+limit, page).subscribe({
+
       next: (data) => {
         this.Requestes = data
         console.log(this.Requestes)
@@ -24,5 +25,10 @@ export class AllRequestsComponent {
         console.log(err.message)
       }
     })
+  }
+  onPageChange(event: any) {
+    console.log(event)
+    console.log(event.page)
+    this.getAllReq(event.rows, event.page)
   }
 }
