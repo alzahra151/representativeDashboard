@@ -50,6 +50,7 @@ import { MessagesModule } from 'primeng/messages';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { LoginComponent } from './components/login/login.component';
 import { PaginatorModule } from "primeng/paginator";
+import { CalendarModule } from 'primeng/calendar';
 
 // import { AllReqsComponent } from './components/representativeComponents/all-reqs/AllReqsComponent';
 
@@ -110,6 +111,7 @@ import { PaginatorModule } from "primeng/paginator";
     RouterModule,
     MessagesModule,
     PaginatorModule,
+    CalendarModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [AuthGuard, AdminGuard],

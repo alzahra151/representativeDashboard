@@ -99,4 +99,7 @@ export class RequestService {
       }),
     })
   }
+  reqFilter(column: any, q: any) {
+    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/search?column=${column}&q=${q}`)
+  }
 }

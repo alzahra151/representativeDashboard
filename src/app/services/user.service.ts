@@ -13,4 +13,7 @@ export class UserService {
   Register(body: any) {
     return this.httpClient.post(`${environment.apiUrl}Representative`, body)
   }
+  getRepresentatives() {
+    return this.httpClient.get(`${environment.apiUrl}Representative/get-represntative`)
+  }
 }

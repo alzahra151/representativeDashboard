@@ -1,20 +1,39 @@
-<div class="flex align-items-center justify-content-center">
-    <div>
-        <p-button icon="pi pi-star" styleClass="p-button-outlined"></p-button>
-    </div>
-    <div class="flex-1">
-        <p-paginator [pageLinkSize]="Requestes?.totalPages" [rows]="Requestes?.limit" [totalRecords]="Requestes?.count"
-            [first]="1" (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="[5 ,10, 15]" dir="ltr">
-        </p-paginator>
-    </div>
-    <div class="justify-content-end">
-        <p-button icon="pi pi-search"></p-button>
-    </div>
+<div class="flex justify-center bg-white pt-3">
+    <!-- <span class="p-input-icon-left mx-1">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText [(ngModel)]="value" (ngModelChange)="clientSearch($event)" />
+    </span> -->
+    <p-paginator [pageLinkSize]="Requestes?.totalPages" [rows]="Requestes?.limit" [totalRecords]="Requestes?.count"
+        [first]="1" (onPageChange)="onPageChange($event)" dir="ltr">
+    </p-paginator>
+    <p-dropdown [options]="representatives" [value]="selectedCountry?._id" [(ngModel)]="selectedCountry"
+        (ngModelChange)="representativeChanged($event)" optionLabel="FullName" [filter]="true" filterBy="FullName"
+        [showClear]="true" placeholder="اختر المندوب">
+        <ng-template pTemplate="selectedItem">
+            <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
+
+                <div>{{ selectedCountry.FullName }}</div>
+            </div>
+        </ng-template>
+        <ng-template let-representative pTemplate="item">
+            <div class="flex align-items-center gap-2">
+
+                <div>{{ representative.FullName }}</div>
+            </div>
+        </ng-template>
+    </p-dropdown>
+    <p-calendar [(ngModel)]="date" dateFormat="yy-mm-dd" class="mx-1" placeholder="اختر التاريخ" dir="ltr"
+        (ngModelChange)="dateChanged($event)" [showButtonBar]="true" [showIcon]="true"></p-calendar>
+
+</div>
+<app-request-card class="" [requests]="Requestes?.requests"></app-request-card>
+
+<div class=" bg-red-500 p-0">
+
+    <p-paginator [pageLinkSize]="Requestes?.totalPages" [rows]="Requestes?.limit" [totalRecords]="Requestes?.count"
+        [first]="1" (onPageChange)="onPageChange($event)" dir="ltr">
+    </p-paginator>
+
 </div>
 
-<app-request-card [requests]="Requestes?.requests"></app-request-card>
-<div class="w-full p-4">
-    <p-paginator [pageLinkSize]="Requestes?.totalPages" [rows]="Requestes?.limit" [totalRecords]="Requestes?.count"
-        [first]="1" (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="[5 ,10, 15]" dir="ltr">
-    </p-paginator>
-</div>
+<!-- <app-request-card class="" [requests]="Requestes?.requests"></app-request-card> -->

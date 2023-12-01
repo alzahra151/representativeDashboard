@@ -8,6 +8,12 @@ import { RequestService } from 'src/app/services/request.service';
 })
 export class AcceptedRequestComponent implements OnInit {
   requests: any
+  representatives: any
+  // selectedCountry: any
+  // date: any
+  // value: any
+  // filterData: any
+  // getAllReqSubscription: any
   constructor(private reqService: RequestService) {
 
   }
