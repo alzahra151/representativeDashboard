@@ -1,6 +1,16 @@
-<p-paginator [pageLinkSize]="Requestes?.totalPages" [rows]="Requestes?.limit" [totalRecords]="Requestes?.count"
-    [first]="1" (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="[5 ,10, 15]" dir="ltr">
-</p-paginator>
+<div class="flex align-items-center justify-content-center">
+    <div>
+        <p-button icon="pi pi-star" styleClass="p-button-outlined"></p-button>
+    </div>
+    <div class="flex-1">
+        <p-paginator [pageLinkSize]="Requestes?.totalPages" [rows]="Requestes?.limit" [totalRecords]="Requestes?.count"
+            [first]="1" (onPageChange)="onPageChange($event)" [rowsPerPageOptions]="[5 ,10, 15]" dir="ltr">
+        </p-paginator>
+    </div>
+    <div class="justify-content-end">
+        <p-button icon="pi pi-search"></p-button>
+    </div>
+</div>
 
 <app-request-card [requests]="Requestes?.requests"></app-request-card>
 <div class="w-full p-4">
