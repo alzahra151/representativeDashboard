@@ -1,30 +1,33 @@
-<div class="flex justify-center bg-white pt-3">
+<div class=" justify-center bg-white pt-3 sm:flex-wrap grid grid-cols-1 lg:grid-cols-2">
     <!-- <span class="p-input-icon-left mx-1">
         <i class="pi pi-search"></i>
         <input type="text" pInputText [(ngModel)]="value" (ngModelChange)="clientSearch($event)" />
     </span> -->
-    <p-paginator [pageLinkSize]="Requestes?.totalPages" [rows]="Requestes?.limit" [totalRecords]="Requestes?.count"
-        [first]="1" (onPageChange)="onPageChange($event)" dir="ltr">
-    </p-paginator>
-    <p-dropdown [options]="representatives" [value]="selectedCountry?._id" [(ngModel)]="selectedCountry"
-        (ngModelChange)="representativeChanged($event)" optionLabel="FullName" [filter]="true" filterBy="FullName"
-        [showClear]="true" placeholder="اختر المندوب">
-        <ng-template pTemplate="selectedItem">
-            <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
+    <div class="col-span-1 bg-red-500 p-0">
+        <p-paginator [pageLinkSize]="Requestes?.totalPages" [rows]="Requestes?.limit" [totalRecords]="Requestes?.count"
+            [first]="1" (onPageChange)="onPageChange($event)" dir="ltr">
+        </p-paginator>
+    </div>
+    <div class="flex col-span-1">
+        <p-dropdown [options]="representatives" [value]="selectedCountry?._id" [(ngModel)]="selectedCountry"
+            (ngModelChange)="representativeChanged($event)" optionLabel="FullName" [filter]="true" filterBy="FullName"
+            [showClear]="true" placeholder="اختر المندوب">
+            <ng-template pTemplate="selectedItem">
+                <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
 
-                <div>{{ selectedCountry.FullName }}</div>
-            </div>
-        </ng-template>
-        <ng-template let-representative pTemplate="item">
-            <div class="flex align-items-center gap-2">
+                    <div>{{ selectedCountry.FullName }}</div>
+                </div>
+            </ng-template>
+            <ng-template let-representative pTemplate="item">
+                <div class="flex align-items-center gap-2">
 
-                <div>{{ representative.FullName }}</div>
-            </div>
-        </ng-template>
-    </p-dropdown>
-    <p-calendar [(ngModel)]="date" dateFormat="yy-mm-dd" class="mx-1" placeholder="اختر التاريخ" dir="ltr"
-        (ngModelChange)="dateChanged($event)" [showButtonBar]="true" [showIcon]="true"></p-calendar>
-
+                    <div>{{ representative.FullName }}</div>
+                </div>
+            </ng-template>
+        </p-dropdown>
+        <p-calendar [(ngModel)]="date" dateFormat="yy-mm-dd" class="mx-1" placeholder="اختر التاريخ" dir="ltr"
+            (ngModelChange)="dateChanged($event)" [showButtonBar]="true" [showIcon]="true"></p-calendar>
+    </div>
 </div>
 <app-request-card class="" [requests]="Requestes?.requests"></app-request-card>
 

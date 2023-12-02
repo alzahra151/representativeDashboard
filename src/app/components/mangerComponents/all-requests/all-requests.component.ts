@@ -1,4 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { OffersService } from 'src/app/services/offers.service';
 import { RequestService } from 'src/app/services/request.service';
 import { UserService } from 'src/app/services/user.service';
@@ -15,12 +16,12 @@ export class AllRequestsComponent implements OnDestroy {
   date: any
   value: any
   filterData: any
-  getAllReqSubscription: any
+  getAllReqSubscription: Subscription = new Subscription
   constructor(private reqService: OffersService, private reqsService: RequestService, private userService: UserService) {
 
   }
   ngOnDestroy() {
-    this.getAllReqSubscription(5, 0).unsubscribe()
+    this.getAllReqSubscription.unsubscribe()
   }
   ngOnInit(): void {
     this.getAllReq(5, 0)
