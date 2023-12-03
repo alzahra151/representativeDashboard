@@ -26,6 +26,7 @@ import { AcceptedReqsComponent } from './components/representativeComponents/acc
 import { RejectedReqsComponent } from './components/representativeComponents/rejected-reqs/rejected-reqs.component';
 import { AllReqsComponent } from './components/representativeComponents/all-reqs/all-reqs.component';
 import { LoginComponent } from './components/login/login.component';
+import { CompleteReqFormComponent } from './components/mangerComponents/complete-req-form/complete-req-form.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent, },
@@ -45,6 +46,8 @@ const routes: Routes = [
       { path: "approved-reqs", component: AcceptedRequestComponent },
       { path: "rejected-reqs", component: RejectedRequestComponent },
       { path: "ReqDetails/:id", component: ReqDetailsManagerComponent },
+      { path: "ReqDetails&completeForm/:id", component: CompleteReqFormComponent },
+
       // { path: "CommentedReqs", component: CommentedReqComponent }
     ]
   },

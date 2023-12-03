@@ -51,6 +51,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { LoginComponent } from './components/login/login.component';
 import { PaginatorModule } from "primeng/paginator";
 import { CalendarModule } from 'primeng/calendar';
+import { CompleteReqFormComponent } from './components/mangerComponents/complete-req-form/complete-req-form.component';
 
 // import { AllReqsComponent } from './components/representativeComponents/all-reqs/AllReqsComponent';
 
@@ -85,7 +86,8 @@ import { CalendarModule } from 'primeng/calendar';
     SideBareComponent,
     RepresntHomeComponent,
     MainReqCardComponent,
-    AllReqsComponent
+    AllReqsComponent,
+    CompleteReqFormComponent
 
   ],
   imports: [
