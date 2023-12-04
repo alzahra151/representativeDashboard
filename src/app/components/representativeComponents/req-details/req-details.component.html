@@ -154,13 +154,10 @@
                             <div
                                 class="servicesInput p-2 flex grid grid-cols-8 inline-block my-2 bg-green-200 font-semibold text-green-900 leading-tight">
                                 <div class="col-span-6">
-                                    <span class=" items-center flex px-2">
-
-
-                                        <span>{{service?.Maintenance?.description}}
-
-                                        </span>
-
+                                    <span class=" items-center  px-2">
+                                        <ul *ngFor="let des of service?.Maintenance?.description ">
+                                            <li>{{des}}</li>
+                                        </ul>
                                     </span>
 
                                 </div>
