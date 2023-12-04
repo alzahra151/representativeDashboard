@@ -33,11 +33,30 @@
                                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2"
                                                     formGroupName="maintainanceData">
                                                     <span class=" m-3 col-span-1">
-                                                        <textarea id="float-input" placeholder="Description" rows="1"
-                                                            class="w-full" formControlName="description"
-                                                            pInputTextarea></textarea>
+
+                                                        <div formArrayName="description">
+                                                            <div class="flex items-center py-2"
+                                                                *ngFor="let des of getDescriptions(j)?.controls;let i=index">
+
+                                                                <span class="p-float-label w-full ">
+                                                                    <input class="w-full " pInputText
+                                                                        name="details{{i+1}}" id="details{{i+1}}"
+                                                                        [formControlName]="i" />
+                                                                    <label htmlFor="details">Add description</label>
+                                                                </span><i (click)="removeDescription(j,i)"
+                                                                    class="pi pi-trash text-red-500 mx-1"></i>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex justify-center m-3">
+                                                            <button (click)="addDescription(j)"
+                                                                class="flex-shrink-0  w-full  bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+                                                                type="button">
+                                                                + Add More description
+                                                            </button>
+                                                        </div>
                                                     </span>
-                                                    <span class=" m-3 col-span-1">
+                                                    <span class=" m-3 col-span-1 py-2">
                                                         <input id="float-input" type="number" class="w-full"
                                                             formControlName="price" placeholder="price">
                                                     </span>
@@ -63,8 +82,8 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- {{reqForm.invalid | json}}
-                        {{reqForm.value | json}} -->
+                        {{reqForm.invalid | json}}
+                        {{reqForm.value | json}}
 
                         <div class="flex justify-center">
                             <button [disabled]="reqForm.invalid" (click)="sendRequest()"
