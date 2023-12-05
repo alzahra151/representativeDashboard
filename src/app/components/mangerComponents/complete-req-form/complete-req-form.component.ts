@@ -18,6 +18,7 @@ export class CompleteReqFormComponent {
   Request: any
   reqForm: FormGroup
   userRole: any;
+  mentainanceDescription: any
   constructor(private route: ActivatedRoute, private router: Router,
     private reqService: RequestService, private FormBuilder: FormBuilder, private authService: AuthService,
     private spinner: NgxSpinnerService, private PdfService: PdfService) {
@@ -33,6 +34,10 @@ export class CompleteReqFormComponent {
       InitialAmountOfMoney: ['', [Validators.required]],
       Maintenance: FormBuilder.array([]),
     })
+    this.mentainanceDescription = ["تدريب ومتابعة",
+      "صيانة ودعم فنى",
+      "تحديث وتطوير",
+      "تدفع سنويا للفروع المذكورة وف حالةزيادة الفروع يتم االتفاق على مبلغ مقابل اشتراك سنوي يدفع بعد اول سنة"]
   }
   get mentaiance() {
     return this.reqForm.get('Maintenance') as FormArray;
@@ -40,7 +45,7 @@ export class CompleteReqFormComponent {
   mentainanceDetails(): FormGroup {
     return this.FormBuilder.group({
       maintainanceData: this.FormBuilder.group({
-        // description: this.FormBuilder.array([this.FormBuilder.control('')]),
+        description: this.FormBuilder.array(this.mentainanceDescription),
         price: [, [Validators.required]],
       }),
       serviceId: []
