@@ -40,16 +40,16 @@ export class CompleteReqFormComponent {
   mentainanceDetails(): FormGroup {
     return this.FormBuilder.group({
       maintainanceData: this.FormBuilder.group({
-        description: this.FormBuilder.array([this.FormBuilder.control('')]),
-        price: [],
+        // description: this.FormBuilder.array([this.FormBuilder.control('')]),
+        price: [, [Validators.required]],
       }),
       serviceId: []
     })
   }
 
-  getDescriptions(index: number): FormArray {
-    return (this.mentaiance.at(index).get('maintainanceData') as FormGroup).get('description') as FormArray;
-  }
+  // getDescriptions(index: number): FormArray {
+  //   return (this.mentaiance.at(index).get('maintainanceData') as FormGroup).get('description') as FormArray;
+  // }
   addServicesMentainanceInputes() {
 
     for (let i = 0; i < this.Request.PriceOffer.Services.length; i++) {
@@ -138,10 +138,10 @@ export class CompleteReqFormComponent {
   addMaintanance(id: any) {
     console.log(id)
   }
-  addDescription(index: any) {
-    this.getDescriptions(index).push(this.FormBuilder.control(''))
-  }
-  removeDescription(parentIndex: number, childIndex: number): void {
-    this.getDescriptions(parentIndex).removeAt(childIndex);
-  }
+  // addDescription(index: any) {
+  //   this.getDescriptions(index).push(this.FormBuilder.control(''))
+  // }
+  // removeDescription(parentIndex: number, childIndex: number): void {
+  //   this.getDescriptions(parentIndex).removeAt(childIndex);
+  // }
 }

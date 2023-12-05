@@ -18,7 +18,7 @@
                                         class="text-red-500">Optional</span>)
                                 </div>
                                 <div>
-                                    <div formArrayName="Maintenance"
+                                    <div formArrayName="Maintenance" dir="rtl"
                                         class="col-span-1  p-0  m-2 border border-gray-400">
                                         <div class=" " *ngFor="let mob of mentaiance.controls;let j=index"
                                             [formGroupName]="j">
@@ -30,9 +30,23 @@
 
                                             </div>
                                             <div>
+                                                <div>
+                                                    <ul class="">
+                                                        <li class="flex items-center"
+                                                            *ngFor="let item of Request?.PriceOffer.Services[j].Maintenance?.description">
+                                                            <svg class="w-3.5 h-3.5 mr-2 text-green-500 dark:text-green-400 flex-shrink-0 mx-2"
+                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                fill="currentColor" viewBox="0 0 20 20">
+                                                                <path
+                                                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                                                            </svg>
+                                                            {{item}}
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2"
                                                     formGroupName="maintainanceData">
-                                                    <span class=" m-3 col-span-1">
+                                                    <!-- <span class=" m-3 col-span-1">
 
                                                         <div formArrayName="description">
                                                             <div class="flex items-center py-2"
@@ -55,10 +69,11 @@
                                                                 + Add More description
                                                             </button>
                                                         </div>
-                                                    </span>
+                                                    </span> -->
                                                     <span class=" m-3 col-span-1 py-2">
                                                         <input id="float-input" type="number" class="w-full"
-                                                            formControlName="price" placeholder="price">
+                                                            formControlName="price"
+                                                            placeholder="Add Maintenance and Updates price ">
                                                     </span>
 
                                                 </div>
@@ -82,8 +97,8 @@
                                 </div>
                             </div>
                         </div>
-                        {{reqForm.invalid | json}}
-                        {{reqForm.value | json}}
+                        <!-- {{reqForm.invalid | json}}
+                        {{reqForm.value | json}} -->
 
                         <div class="flex justify-center">
                             <button [disabled]="reqForm.invalid" (click)="sendRequest()"
