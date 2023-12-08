@@ -8,10 +8,12 @@ import { RequestService } from 'src/app/services/request.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { forkJoin } from 'rxjs';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-req-details-manager',
   templateUrl: './req-details-manager.component.html',
-  styleUrls: ['./req-details-manager.component.scss']
+  styleUrls: ['./req-details-manager.component.scss'],
+
 })
 export class ReqDetailsManagerComponent {
   pdfUrl: any
@@ -86,7 +88,7 @@ export class ReqDetailsManagerComponent {
         var link = document.createElement("a");
         link.href = data;
         this.pdfUrl = data
-        link.download = `${this.Request.QrCode}.pdf`;
+        link.download = `02-${this.Request.QrCode}.pdf`;
         // this is necessary as link.click() does not work on the latest firefox
         link.dispatchEvent(
           new MouseEvent("click", {

@@ -21,7 +21,12 @@ export class RequestService {
   }
 
   AddPriceOfferReq(data: any) {
-    return this.httpClient.post(`${environment.apiUrl}PriceOfferReq/AddRequest`, data, this.options)
+    return this.httpClient.post(`${environment.apiUrl}PriceOfferReq/AddRequest`, data, this.options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'token': 'token ' + localStorage.getItem('token')
+      }),
+    })
   }
 
   GetServices() {
@@ -45,7 +50,12 @@ export class RequestService {
     return this.httpClient.patch(`${environment.apiUrl}PriceOffer/${offerId}/service`, data)
   }
   getCommentedRepresentReqs() {
-    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/commented-represent-reqs`, this.options)
+    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/commented-represent-reqs`, this.options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'token': 'token ' + localStorage.getItem('token')
+      }),
+    })
   }
   getDeviceById(id: any) {
     return this.httpClient.get(`${environment.apiUrl}Device/${id}`);
@@ -56,8 +66,8 @@ export class RequestService {
   AddPriceOffer(data: any): Observable<PriceOffer> {
     return this.httpClient.post<PriceOffer>(`${environment.apiUrl}PriceOffer/AddPriceOffer`, data)
   }
-  getManagerAprovedReq() {
-    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/salesMangersApprovedReq`)
+  getManagerAprovedReq(limit: any, page: any) {
+    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/salesMangersApprovedReq?limit=${limit}&page=${page}`)
   }
   getRejectedReqs() {
     return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/rejected-req`)

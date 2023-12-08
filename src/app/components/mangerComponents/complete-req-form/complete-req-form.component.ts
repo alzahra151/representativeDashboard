@@ -127,7 +127,7 @@ export class CompleteReqFormComponent {
     const { Maintenance } = this.reqForm.value
     console.log(this.reqForm.get('InitialAmountOfMoney')?.value)
     forkJoin([
-      this.reqService.updateReq(this.Request._id, { InitialAmountOfMoney, SendToAdmin: true }),
+      this.reqService.updateReq(this.Request._id, { InitialAmountOfMoney: InitialAmountOfMoney, SendToAdmin: true }),
       this.reqService.updatePriceOfferService(this.Request.PriceOffer._id, Maintenance)
     ]).subscribe(
       ([resultFromFirst, resultFromSecond]) => {

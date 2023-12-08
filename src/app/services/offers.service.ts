@@ -18,7 +18,12 @@ export class OffersService {
 
   getAgentOffers() {
 
-    return this.httpClient.get(`${environment.apiUrl}PriceOffer/getRepresentativeOffers`, this.httpOptions)
+    return this.httpClient.get(`${environment.apiUrl}PriceOffer/getRepresentativeOffers`, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'token': `token ${this.token || ''}`
+      })
+    })
   }
   getOfferById(id: any) {
     return this.httpClient.get(`${environment.apiUrl}PriceOffer/${id}`)
@@ -27,7 +32,12 @@ export class OffersService {
     return localStorage.getItem('token')
   }
   getRepReqs() {
-    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/RepresenetitaveRequests`, this.httpOptions)
+    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/RepresenetitaveRequests`, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'token': `token ${this.token || ''}`
+      })
+    })
   }
   getAllReq(limit: any, page: any) {
     return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/SalesMangerRequests?limit=${limit}&page=${page}`, this.httpOptions = {

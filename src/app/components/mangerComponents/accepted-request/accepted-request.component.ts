@@ -18,10 +18,10 @@ export class AcceptedRequestComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.getAprovedReq()
+    this.getAprovedReq(6, 1)
   }
-  getAprovedReq() {
-    this.reqService.getManagerAprovedReq().subscribe({
+  getAprovedReq(limit: number, page: number) {
+    this.reqService.getManagerAprovedReq(limit, page).subscribe({
       next: (reqs) => {
         this.requests = reqs
         console.log(this.requests)
@@ -30,5 +30,10 @@ export class AcceptedRequestComponent implements OnInit {
         console.log(err.message)
       }
     })
+  }
+  onPageChange(event: any) {
+    console.log(event)
+    console.log(event.page)
+    this.getAprovedReq(event.rows, event.page)
   }
 }
