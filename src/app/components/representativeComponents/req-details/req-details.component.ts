@@ -54,12 +54,14 @@ export class ReqDetailsComponent implements OnInit, OnDestroy {
       // console.log(offerData)
       this.PdfService.downloadPDF(offerData).subscribe({
         next: (x: any) => {
+          console.log(x)
           var newBlob = new Blob([x], { type: "application/pdf" });
 
           const data = window.URL.createObjectURL(newBlob);
           var link = document.createElement("a");
           link.href = data;
           this.pdfUrl = data
+          console.log(this.pdfUrl)
           link.download = `02-${this.Request.QrCode}.pdf`;
           // this is necessary as link.click() does not work on the latest firefox
           link.dispatchEvent(
