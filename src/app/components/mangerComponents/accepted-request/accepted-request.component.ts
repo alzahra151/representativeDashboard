@@ -18,7 +18,7 @@ export class AcceptedRequestComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.getAprovedReq(6, 1)
+    this.getAprovedReq(6, 0)
   }
   getAprovedReq(limit: number, page: number) {
     this.reqService.getManagerAprovedReq(limit, page).subscribe({

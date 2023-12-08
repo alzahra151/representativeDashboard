@@ -1,4 +1,4 @@
 <p-paginator [pageLinkSize]="requests?.totalPages" [rows]="requests?.limit" [totalRecords]="requests?.count" [first]="1"
     (onPageChange)="onPageChange($event)" dir="ltr">
 </p-paginator>
-<app-request-card [requests]="requests.requests"></app-request-card>
+<app-request-card [requests]="requests?.requests"></app-request-card>
