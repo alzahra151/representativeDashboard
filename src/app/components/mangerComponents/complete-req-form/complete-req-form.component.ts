@@ -37,7 +37,9 @@ export class CompleteReqFormComponent {
     this.mentainanceDescription = ["تدريب ومتابعة",
       "صيانة ودعم فنى",
       "تحديث وتطوير",
-      "تدفع سنويا للفروع المذكورة وف حالةزيادة الفروع يتم االتفاق على مبلغ مقابل اشتراك سنوي يدفع بعد اول سنة"]
+      "تدفع سنويا للفروع المذكورة وف حالةزيادة الفروع يتم الاتفاق على مبلغ مقابل ",
+      " اشتراك سنوي يدفع بعد اول سنة"
+    ]
   }
   get mentaiance() {
     return this.reqForm.get('Maintenance') as FormArray;
