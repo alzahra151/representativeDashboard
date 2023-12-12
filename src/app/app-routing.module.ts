@@ -27,9 +27,11 @@ import { RejectedReqsComponent } from './components/representativeComponents/rej
 import { AllReqsComponent } from './components/representativeComponents/all-reqs/all-reqs.component';
 import { LoginComponent } from './components/login/login.component';
 import { CompleteReqFormComponent } from './components/mangerComponents/complete-req-form/complete-req-form.component';
+import { EditeUserComponent } from './components/edite-user/edite-user.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent, },
+  { path: "update-user", component: EditeUserComponent },
   { path: "register", component: RegistrationComponent },
   {
     path: "ManagerHome", component: ManagerLayoutComponent, canActivate: [AdminGuard],
@@ -64,6 +66,8 @@ const routes: Routes = [
           roles: ['Representative'],
         },
       },
+      { path: "update-user", component: EditeUserComponent },
+
       { path: "RequestForm", component: RequestFormComponent },
       { path: "requests", component: AllReqsComponent },
 
