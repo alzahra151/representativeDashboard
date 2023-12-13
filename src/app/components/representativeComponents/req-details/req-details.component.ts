@@ -94,7 +94,6 @@ export class ReqDetailsComponent implements OnInit, OnDestroy {
   preventDownloadMessage() {
     this.messageService.add({
       severity: "warn",
-
       detail: "you can't download this file",
     });
   }
