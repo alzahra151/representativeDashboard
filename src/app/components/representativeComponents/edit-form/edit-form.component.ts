@@ -144,7 +144,8 @@ export class EditFormComponent implements OnInit {
       }
     })
   }
-  AddNewReq() {
+  async AddNewReq() {
+    await this.calculateServiceSubTotal()
     const req = { ...this.ReqForm.value, Complete: true, Comment: null }
     const offerData = { "Services": this.Services().value, "TotalPrice": this.TotalPriceOffer, "TotalCopies": this.TotalCopies }
     forkJoin([
@@ -162,7 +163,8 @@ export class EditFormComponent implements OnInit {
       }
     );
   }
-  archiveRequest() {
+  async archiveRequest() {
+    await this.calculateServiceSubTotal()
     const offerData = { "Services": this.Services().value, "TotalPrice": this.TotalPriceOffer, "TotalCopies": this.TotalCopies }
     forkJoin([
       this.reqService.updateReq(this.EditedReq._id, this.ReqForm.value),

@@ -175,10 +175,12 @@
                     </h2>
 
                 </div>
-                <div class="p-3  bg-black text-white flex justify-end text-bold">
+                <div class="p-3  bg-black text-white flex justify-end text-bold" dir="ltr">
 
-                    <h2>Payment Plan : <span class="font-semibold"> {{Request?.PaymentPlan?.Plan }}</span> <i
-                            class="pi pi-calendar-plus mx-2"></i></h2>
+                    <i class="pi pi-calendar-plus mx-2"></i>
+                    <h2 class=" ">Payment Plan : <span class="font-semibold">
+                            {{Request?.PaymentPlan?.Plan
+                            }}</span> </h2>
 
                 </div>
                 <div class="p-3  bg-black text-white flex justify-end text-bold">

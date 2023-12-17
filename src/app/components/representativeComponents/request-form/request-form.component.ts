@@ -136,8 +136,8 @@ export class RequestFormComponent implements OnInit {
       }
     })
   }
-  AddPriceoffer(sendToManager: Boolean) {
-    // this.calculateServiceSubTotal()
+  async AddPriceoffer(sendToManager: Boolean) {
+    await this.calculateServiceSubTotal()
     const offerData = { "Services": this.Services.value, "TotalPrice": this.TotalPriceOffer, "TotalCopies": this.TotalCopies }
     console.log(offerData)
     this.reqService.AddPriceOffer(offerData).subscribe({
@@ -146,12 +146,13 @@ export class RequestFormComponent implements OnInit {
         console.log(this.PriceOffer)
         if (sendToManager === true) {
           console.log(sendToManager)
+
           this.AddNewReq() //send request to managers
-          this.router.navigate(['/RepresentHome/requests'])
+          // this.router.navigate(['/RepresentHome/requests'])
         } else {
           console.log(sendToManager)
           this.archiveRequest() // archieve req for representative
-          this.router.navigate(['/RepresentHome/requests-archieve'])
+          // this.router.navigate(['/RepresentHome/requests-archieve'])
         }
       },
       error: (error) => {
@@ -162,10 +163,12 @@ export class RequestFormComponent implements OnInit {
   AddNewReq() {
     console.log(this.ReqID)
     const req = { ...this.ReqForm.value, Complete: true, PriceOffer: this.PriceOffer._id, Comment: null }
+    console.log(req)
     this.reqService.AddPriceOfferReq(req).subscribe({
       next: (res) => {
         console.log('sucess', res)
-        this.ReqForm.reset()
+        this.router.navigate(['/RepresentHome/requests'])
+
         // this.archiveRequest()
       },
       error: (err) => {
@@ -174,17 +177,31 @@ export class RequestFormComponent implements OnInit {
     })
   }
   archiveRequest() {
-    // this.router.navigate(['/requests'])
+
     const ReqData = { ...this.ReqForm.value, PriceOffer: this.PriceOffer._id }
-    this.reqService.AddPriceOfferReq(ReqData).subscribe({
-      next: (res) => {
-        console.log('sucess', res)
-        this.ReqForm.reset()
-      },
-      error: (err) => {
-        console.log(err)
+    this.reqService.AddPriceOfferReq(ReqData).subscribe(
+      {
+        next: (res) => {
+          console.log('sucess', res)
+          this.router.navigate(['/RepresentHome/requests-archieve'])
+
+        },
+        error: (err) => {
+          console.log(err)
+        }
       }
-    })
+      // async (result) => {
+      //   // Perform asynchronous operations
+      //   console.log('sucess', result)
+      //   await this.calculateServiceSubTotal()
+      //   this.ReqForm.reset()
+
+
+      // },
+      // (error) => {
+      //   console.log(error)
+      // }
+    )
   }
   getSeviceDevices(id: any, index: any) {
     const service = this.services.find((service: any) => service._id === id)
@@ -209,6 +226,7 @@ export class RequestFormComponent implements OnInit {
   SelectedDevicesPrice(event: any, serviceIndex: any) {
     const deviceID = event.target?.value
     console.log(deviceID)
+
     this.reqService.getDeviceById(deviceID).subscribe({
       next: (data) => {
         console.log(data)
