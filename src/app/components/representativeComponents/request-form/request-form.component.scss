@@ -64,3 +64,9 @@ svg{
 select option[selected] {
   background-color: #f5f5f5;
 }
+::ng-deep .p-float-label .p-placeholder{
+    opacity: 1;
+}
+::ng-deep .p-dropdown {
+    width: 100%;
+}

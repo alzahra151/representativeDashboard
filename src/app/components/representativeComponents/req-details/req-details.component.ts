@@ -97,5 +97,7 @@ export class ReqDetailsComponent implements OnInit, OnDestroy {
       detail: "you can't download this file",
     });
   }
+  getCurrency() {
 
+  }
 }

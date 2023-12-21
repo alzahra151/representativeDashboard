@@ -47,7 +47,7 @@
                     </div>
                     <div class="grid grid-cols-4">
                         <div class="col-span-1"> الدولة</div>
-                        <div class="col-span-3">:{{Request?.Country}}</div>
+                        <div class="col-span-3">:{{Request?.Country?.name}}</div>
                     </div>
                     <div class="grid grid-cols-4">
                         <div class="col-span-1"> المحافظة</div>
@@ -128,14 +128,16 @@
 
                                 </div>
 
-                                <h4 class="col-span-2">{{device?.SubTotalPrice}} EGP</h4>
+                                <h4 class="col-span-2">{{device?.SubTotalPrice |currency:Request?.Country?.currency}}
+                                </h4>
 
                             </span>
 
                         </span>
                     </div>
                     <span class="flex justify-end mt-5 mb-2">
-                        <h4 class="col-span-2 px-5 font-bold	">Sub Total: {{service?.serviceTotalPrice}} EGP
+                        <h4 class="col-span-2 px-5 font-bold	">Sub Total: {{service?.serviceTotalPrice
+                            |currency:Request?.Country?.currency}}
                         </h4>
                     </span>
                     <ng-container *ngIf="Request?.ApproveToReprsentative && Request?.ApproveToSalesManger">
@@ -159,7 +161,8 @@
                                     </span>
 
                                 </div>
-                                <h4 class="col-span-2">{{service?.Maintenance?.price}} EGP</h4>
+                                <h4 class="col-span-2">{{service?.Maintenance?.price
+                                    |currency:Request?.Country?.currency}} </h4>
                             </div>
                         </div>
                     </ng-container>
@@ -170,7 +173,9 @@
             <div>
                 <div class="p-3  bg-black text-white flex justify-end text-bold">
 
-                    <h2>Total : <span class="font-semibold">{{Request?.PriceOffer?.TotalPrice |currency:"EGP"}}</span>
+                    <h2>Total : <span class="font-semibold">
+                            {{Request?.PriceOffer?.TotalPrice |currency:Request?.Country?.currency}}
+                        </span>
                         <i class="pi pi-pound mx-2"></i>
                     </h2>
 
@@ -188,8 +193,8 @@
                 </div>
                 <div class="p-3  bg-black text-white flex justify-end text-bold">
 
-                    <h2> Initial Amount Of Money : <span class="font-semibold"> {{Request?.InitialAmountOfMoney |
-                            currency :"EGP"}} </span><i class="pi pi-money-bill mx-2"></i></h2>
+                    <h2> Initial Amount Of Money : <span class="font-semibold"> {{Request?.InitialAmountOfMoney
+                            |currency:Request?.Country?.currency}} </span><i class="pi pi-money-bill mx-2"></i></h2>
 
                 </div>
                 <div class="p-3  bg-black text-white flex justify-end text-bold">

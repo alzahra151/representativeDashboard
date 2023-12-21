@@ -29,6 +29,7 @@ export class EditFormComponent implements OnInit {
   EditedReq: any
   TotalCopies: number = 0
   socket = io('https://varrox-system-apii.onrender.com');
+  countries: any = [];
 
   constructor(private reqService: RequestService, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router) {
     this.ReqForm = formBuilder.group({
@@ -67,6 +68,7 @@ export class EditFormComponent implements OnInit {
     this.GetServices()
     this.getReqById()
     this.getPaymentPlans()
+    this.getCounries()
   }
 
   get ActivityName() {
@@ -98,6 +100,9 @@ export class EditFormComponent implements OnInit {
   }
   get BranchesNumber() {
     return this.ReqForm.get('BranchesNumber');
+  }
+  get PaymentPlan() {
+    return this.ReqForm.get('PaymentPlan');
   }
   Services(): FormArray {
     return this.ReqForm.get('Services') as FormArray;
@@ -228,6 +233,9 @@ export class EditFormComponent implements OnInit {
       }
     }
     this.ReqForm.setValue(formValues);
+    this.Country?.patchValue(this.EditedReq.Country._id)
+    this.PaymentPlan?.patchValue(this.EditedReq.PaymentPlan._id)
+
     // this.calculateServiceSubTotal()
   }
   getReqById() {
@@ -300,7 +308,9 @@ export class EditFormComponent implements OnInit {
         const quentity = this.DeviceInp(i)?.controls[j]?.value.Quantity
         const DeviceID = this.DeviceInp(i)?.controls[j]?.value.Device
         const device = this.selectedValues[i].Devices.find((device: any) => device._id === DeviceID)
-        const subTotal = quentity * JSON.parse(device.Price)
+        const price = device.Price.find((price: any) => this.Country?.value === price.country._id)
+        console.log(price)
+        const subTotal = quentity * JSON.parse(price.price)
         let subTotalControl = this.DeviceInp(i)?.controls[j].get('SubTotalPrice')
         subTotalControl?.patchValue(subTotal)
         TotalPrice = TotalPrice + subTotalControl?.value
@@ -334,7 +344,18 @@ export class EditFormComponent implements OnInit {
   deleteService(serviceIndex: number) {
     this.Services().removeAt(serviceIndex)
   }
+  getCounries() {
+    this.reqService.getCountries().subscribe({
+      next: (data) => {
+        this.countries = data
+        console.log(this.countries)
+      },
+      error: (err) => {
+        console.log(err.message)
+      }
 
+    })
+  }
 
 
 }

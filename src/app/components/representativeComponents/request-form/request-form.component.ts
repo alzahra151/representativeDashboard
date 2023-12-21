@@ -27,6 +27,8 @@ export class RequestFormComponent implements OnInit {
   selected: any
   EditedReq: any;
   TotalCopies: number = 0
+  selectedCountry: any
+  countries: any = []
   constructor(private reqService: RequestService, private formBuilder: FormBuilder, private route: ActivatedRoute,
     private router: Router, private messageService: MessageService,
     private primengConfig: PrimeNGConfig) {
@@ -53,6 +55,7 @@ export class RequestFormComponent implements OnInit {
   ngOnInit(): void {
     this.GetServices()
     this.getPaymentPlans()
+    this.getCounries()
     // this.markFormGroupTouched(this.ReqForm)
   }
 
@@ -120,7 +123,6 @@ export class RequestFormComponent implements OnInit {
       Quantity: [, Validators.required],
       SubTotalPrice: []
     }));
-
   }
   addService(): void {
     this.Services.push(this.addServiceGroup());
@@ -253,7 +255,9 @@ export class RequestFormComponent implements OnInit {
         const device = this.selectedValues[i].Devices.find((device: any) => device._id == DeviceID)
         console.log(this.SelectedDevices)
         console.log(device)
-        const subTotal = quentity * JSON.parse(device.Price)
+        const price = device.Price.find((price: any) => this.Country?.value === price.country._id)
+        console.log(price)
+        const subTotal = quentity * JSON.parse(price.price)
         let subTotalControl = this.DeviceOffer(i)?.controls[j].get('SubTotalPrice')
         subTotalControl?.patchValue(subTotal)
         TotalPrice = TotalPrice + subTotalControl?.value
@@ -292,6 +296,17 @@ export class RequestFormComponent implements OnInit {
     this.Services.removeAt(serviceIndex)
   }
 
+  getCounries() {
+    this.reqService.getCountries().subscribe({
+      next: (data) => {
+        this.countries = data
+        console.log(this.countries)
+      },
+      error: (err) => {
+        console.log(err.message)
+      }
 
+    })
+  }
 
 }

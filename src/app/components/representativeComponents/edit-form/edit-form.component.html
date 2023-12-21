@@ -52,9 +52,12 @@
                     <div class="w-full">
                         <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">الدولة
                             <span class="text-red-500">*</span></label>
-                        <input type="text" name="price" id="price" formControlName="Country"
+                        <!-- <input type="text" name="price" id="price" formControlName="Country"
                             class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="" required="" />
+                            placeholder="" required="" /> -->
+                        <p-dropdown class="w-full " [options]="countries" id="country" optionLabel="name"
+                            formControlName="Country" [autoDisplayFirst]="false" placeholder="select country"
+                            optionValue="_id"></p-dropdown>
                         <div class="alert text-red-500" [hidden]="Country?.valid || Country?.untouched">
                             <small *ngIf="Country?.errors?.['required']">اسم الدولة مطلوب</small>
                         </div>
@@ -371,8 +374,8 @@
                 </button>
             </div>
         </form>
-        <!-- {{ ReqForm.value | json }}
-        {{ ReqForm.invalid | json }} -->
+        {{ ReqForm.value | json }}
+        {{ ReqForm.invalid | json }}
     </div>
 </section>
 <!-- Component Start  -->
