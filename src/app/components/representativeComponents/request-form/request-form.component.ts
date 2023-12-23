@@ -29,6 +29,8 @@ export class RequestFormComponent implements OnInit {
   TotalCopies: number = 0
   selectedCountry: any
   countries: any = []
+  newCountry: boolean = false
+  country: any
   constructor(private reqService: RequestService, private formBuilder: FormBuilder, private route: ActivatedRoute,
     private router: Router, private messageService: MessageService,
     private primengConfig: PrimeNGConfig) {
@@ -37,6 +39,7 @@ export class RequestFormComponent implements OnInit {
       Mobile: ['', [Validators.required]],
       Phone: [''],
       Email: [''],
+      NewCountry: [''],
       // Location: [''],
       ActivityName: ['', [Validators.required]],
       ActivityNature: ['', [Validators.required]],
@@ -93,6 +96,9 @@ export class RequestFormComponent implements OnInit {
   get Services(): FormArray {
     return this.ReqForm.get('Services') as FormArray;
   }
+  get NewCountry() {
+    return this.ReqForm.get('NewCountry')
+  }
   newDevice(): FormGroup {
     return this.formBuilder.group({
       Device: [''],
@@ -140,6 +146,9 @@ export class RequestFormComponent implements OnInit {
   }
   async AddPriceoffer(sendToManager: Boolean) {
     await this.calculateServiceSubTotal()
+    if (this.newCountry) {
+      await this.addCountry()
+    }
     const offerData = { "Services": this.Services.value, "TotalPrice": this.TotalPriceOffer, "TotalCopies": this.TotalCopies }
     console.log(offerData)
     this.reqService.AddPriceOffer(offerData).subscribe({
@@ -148,13 +157,10 @@ export class RequestFormComponent implements OnInit {
         console.log(this.PriceOffer)
         if (sendToManager === true) {
           console.log(sendToManager)
-
-          this.AddNewReq() //send request to managers
-          // this.router.navigate(['/RepresentHome/requests'])
+          this.AddNewReq() //send request to managers 
         } else {
           console.log(sendToManager)
           this.archiveRequest() // archieve req for representative
-          // this.router.navigate(['/RepresentHome/requests-archieve'])
         }
       },
       error: (error) => {
@@ -192,17 +198,6 @@ export class RequestFormComponent implements OnInit {
           console.log(err)
         }
       }
-      // async (result) => {
-      //   // Perform asynchronous operations
-      //   console.log('sucess', result)
-      //   await this.calculateServiceSubTotal()
-      //   this.ReqForm.reset()
-
-
-      // },
-      // (error) => {
-      //   console.log(error)
-      // }
     )
   }
   getSeviceDevices(id: any, index: any) {
@@ -249,9 +244,8 @@ export class RequestFormComponent implements OnInit {
       for (let j = 0; j < this.DeviceOffer(i).length; j++) {
         const quentity = this.DeviceOffer(i)?.controls[j]?.value.Quantity
         const DeviceID = this.DeviceOffer(i)?.controls[j]?.value.Device
-        const Device = this.DeviceInp(i)?.controls[j]?.value
-
-        console.log(DeviceID, Device)
+        // const Device = this.DeviceInp(i)?.controls[j]?.value
+        console.log(DeviceID,)
         const device = this.selectedValues[i].Devices.find((device: any) => device._id == DeviceID)
         console.log(this.SelectedDevices)
         console.log(device)
@@ -264,9 +258,6 @@ export class RequestFormComponent implements OnInit {
         serviceTotalPrice = serviceTotalPrice + subTotal
         totalCopies = totalCopies + quentity
       }
-      // serviceTotalPrice = serviceTotalPrice+
-      // console.log(this.services.controls.get('serviceTotalPrice'))
-
       this.Services?.controls[i]?.get('serviceTotalPrice')?.patchValue(serviceTotalPrice)
       console.log(this.Services?.controls[i].get('serviceTotalPrice'))
     }
@@ -308,5 +299,26 @@ export class RequestFormComponent implements OnInit {
 
     })
   }
-
+  changCountry(event: any) {
+    console.log(event.target.value)
+    this.Country?.patchValue(event.target.value)
+    if (event.target.value == '6583920edc4e37385f4c8bf6') {
+      this.newCountry = true
+    }
+  }
+  addCountry() {
+    console.log(this.NewCountry?.value)
+    const countryData = { 'name': this.NewCountry?.value }
+    this.reqService.addCountry(countryData).subscribe({
+      next: (data) => {
+        console.log(data)
+        this.country = data
+        console.log(this.country)
+        this.Country?.patchValue(this.country._id)
+      },
+      error: (err) => {
+        console.log(err.message)
+      }
+    })
+  }
 }

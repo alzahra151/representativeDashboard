@@ -30,13 +30,15 @@ export class EditFormComponent implements OnInit {
   TotalCopies: number = 0
   socket = io('https://varrox-system-apii.onrender.com');
   countries: any = [];
-
+  newCountry: boolean = false
+  country: any
   constructor(private reqService: RequestService, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router) {
     this.ReqForm = formBuilder.group({
       Name: ['', [Validators.required, Validators.minLength(2)]],
       Mobile: ['', [Validators.required]],
       Phone: [''],
       Email: [''],
+      NewCountry: [''],
       // Location: [''],
       ActivityName: ['', [Validators.required]],
       ActivityNature: ['', [Validators.required]],
@@ -104,6 +106,9 @@ export class EditFormComponent implements OnInit {
   get PaymentPlan() {
     return this.ReqForm.get('PaymentPlan');
   }
+  get NewCountry() {
+    return this.ReqForm.get('NewCountry')
+  }
   Services(): FormArray {
     return this.ReqForm.get('Services') as FormArray;
   }
@@ -151,6 +156,9 @@ export class EditFormComponent implements OnInit {
   }
   async AddNewReq() {
     await this.calculateServiceSubTotal()
+    if (this.newCountry) {
+      await this.addCountry()
+    }
     const req = { ...this.ReqForm.value, Complete: true, Comment: null }
     const offerData = { "Services": this.Services().value, "TotalPrice": this.TotalPriceOffer, "TotalCopies": this.TotalCopies }
     forkJoin([
@@ -170,6 +178,9 @@ export class EditFormComponent implements OnInit {
   }
   async archiveRequest() {
     await this.calculateServiceSubTotal()
+    if (this.newCountry) {
+      await this.addCountry()
+    }
     const offerData = { "Services": this.Services().value, "TotalPrice": this.TotalPriceOffer, "TotalCopies": this.TotalCopies }
     forkJoin([
       this.reqService.updateReq(this.EditedReq._id, this.ReqForm.value),
@@ -232,7 +243,7 @@ export class EditFormComponent implements OnInit {
         continue;
       }
     }
-    this.ReqForm.setValue(formValues);
+    this.ReqForm.patchValue(formValues);
     this.Country?.patchValue(this.EditedReq.Country._id)
     this.PaymentPlan?.patchValue(this.EditedReq.PaymentPlan._id)
 
@@ -308,8 +319,11 @@ export class EditFormComponent implements OnInit {
         const quentity = this.DeviceInp(i)?.controls[j]?.value.Quantity
         const DeviceID = this.DeviceInp(i)?.controls[j]?.value.Device
         const device = this.selectedValues[i].Devices.find((device: any) => device._id === DeviceID)
-        const price = device.Price.find((price: any) => this.Country?.value === price.country._id)
+        let price = device.Price.find((price: any) => this.Country?.value === price.country._id)
         console.log(price)
+        if (!price) {
+          price = device.Price.find((price: any) => price.country.name == 'غير ذلك')
+        }
         const subTotal = quentity * JSON.parse(price.price)
         let subTotalControl = this.DeviceInp(i)?.controls[j].get('SubTotalPrice')
         subTotalControl?.patchValue(subTotal)
@@ -354,6 +368,28 @@ export class EditFormComponent implements OnInit {
         console.log(err.message)
       }
 
+    })
+  }
+  changCountry(event: any) {
+    console.log(event.target.value)
+    this.Country?.patchValue(event.target.value)
+    if (event.target.value == '6583920edc4e37385f4c8bf6') {
+      this.newCountry = true
+    }
+  }
+  addCountry() {
+    console.log(this.NewCountry?.value)
+    const countryData = { 'name': this.NewCountry?.value }
+    this.reqService.addCountry(countryData).subscribe({
+      next: (data) => {
+        console.log(data)
+        this.country = data
+        console.log(this.country)
+        this.Country?.patchValue(this.country._id)
+      },
+      error: (err) => {
+        console.log(err.message)
+      }
     })
   }
 

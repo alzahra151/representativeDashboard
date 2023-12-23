@@ -55,9 +55,25 @@
                         <!-- <input type="text" name="price" id="price" formControlName="Country"
                             class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="" required="" /> -->
-                        <p-dropdown class="w-full " [options]="countries" id="country" optionLabel="name"
-                            formControlName="Country" [autoDisplayFirst]="false" placeholder="select country"
-                            optionValue="_id"></p-dropdown>
+                        <!-- <p-dropdown class="w-full " [options]="countries" id="country" optionLabel="name"
+                            (onChange)="changCountry($event)" [autoDisplayFirst]="false" placeholder="select country"
+                            optionValue="_id"></p-dropdown> -->
+                        <select id="countries" (change)="changCountry($event)"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option selected>Choose a country</option>
+                            <option *ngFor="let country of countries.slice(0,3)" [value]="country._id">{{country.name}}
+                            </option>
+
+                        </select>
+                        <div class="alert text-red-500" [hidden]="Country?.valid || Country?.untouched">
+                            <small *ngIf="Country?.errors?.['required']">اسم الدولة مطلوب</small>
+                        </div>
+                    </div>
+                    <div class="sm:col-span-2" [hidden]="!newCountry">
+
+                        <input type="text" name="price" id="price" formControlName="NewCountry"
+                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="ادخل اسم الدولة" required="" />
                         <div class="alert text-red-500" [hidden]="Country?.valid || Country?.untouched">
                             <small *ngIf="Country?.errors?.['required']">اسم الدولة مطلوب</small>
                         </div>
@@ -374,8 +390,8 @@
                 </button>
             </div>
         </form>
-        {{ ReqForm.value | json }}
-        {{ ReqForm.invalid | json }}
+        <!-- {{ ReqForm.value | json }}
+        {{ ReqForm.invalid | json }} -->
     </div>
 </section>
 <!-- Component Start  -->

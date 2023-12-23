@@ -115,4 +115,7 @@ export class RequestService {
   getCountries() {
     return this.httpClient.get(`${environment.apiUrl}Country/countries`)
   }
+  addCountry(data: any) {
+    return this.httpClient.post(`${environment.apiUrl}Country/add-country`, data)
+  }
 }
