@@ -371,6 +371,7 @@ export class EditFormComponent implements OnInit {
     })
   }
   changCountry(event: any) {
+    this.newCountry = false
     console.log(event.target.value)
     this.Country?.patchValue(event.target.value)
     if (event.target.value == '6583920edc4e37385f4c8bf6') {
