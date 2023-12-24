@@ -51,7 +51,7 @@ export class RequestFormComponent implements OnInit {
       BranchesNumber: [, [Validators.required]],
       PaymentPlan: ['', [Validators.required]],
       Notes: [''],
-      TotalCopies: []
+      // TotalCopies: []
     })
 
   }
@@ -115,7 +115,8 @@ export class RequestFormComponent implements OnInit {
     return this.formBuilder.group({
       Service: [''],
       Devices: this.formBuilder.array([]),
-      serviceTotalPrice: []
+      serviceTotalPrice: [],
+      TotalCopies: []
     });
   }
   DeviceInp(serviceIndex: number): FormArray {
@@ -149,7 +150,7 @@ export class RequestFormComponent implements OnInit {
     if (this.newCountry) {
       await this.addCountry()
     }
-    const offerData = { "Services": this.Services.value, "TotalPrice": this.TotalPriceOffer, "TotalCopies": this.TotalCopies }
+    const offerData = { "Services": this.Services.value, "TotalPrice": this.TotalPriceOffer }
     console.log(offerData)
     this.reqService.AddPriceOffer(offerData).subscribe({
       next: (value) => {
@@ -238,9 +239,10 @@ export class RequestFormComponent implements OnInit {
   }
   calculateServiceSubTotal() {
     let TotalPrice = 0
-    let totalCopies = 0
+
     for (let i = 0; i < this.Services.length; i++) {
       let serviceTotalPrice = 0
+      let totalCopies = 0
       for (let j = 0; j < this.DeviceOffer(i).length; j++) {
         const quentity = this.DeviceOffer(i)?.controls[j]?.value.Quantity
         const DeviceID = this.DeviceOffer(i)?.controls[j]?.value.Device
@@ -258,13 +260,15 @@ export class RequestFormComponent implements OnInit {
         serviceTotalPrice = serviceTotalPrice + subTotal
         totalCopies = totalCopies + quentity
       }
+      // this.TotalCopies = totalCopies
       this.Services?.controls[i]?.get('serviceTotalPrice')?.patchValue(serviceTotalPrice)
-      console.log(this.Services?.controls[i].get('serviceTotalPrice'))
+      this.Services?.controls[i]?.get('TotalCopies')?.patchValue(totalCopies)
+      console.log(this.Services?.controls[i].get('serviceTotalPrice'), this.Services?.controls[i]?.get('TotalCopies'))
     }
     this.TotalPriceOffer = TotalPrice
     // this.ReqForm.controls['TotalCopies'].patchValue(totalCopies)
-    this.TotalCopies = totalCopies
-    console.log(this.TotalCopies)
+
+    // console.log(this.TotalCopies)
     console.log(this.TotalPriceOffer)
 
   }
