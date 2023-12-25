@@ -22,7 +22,7 @@
                             النشاط <span class="text-red-500">*</span></label>
                         <input type="text" name="name" id="name" formControlName="ActivityName"
                             class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="" required="" />
+                            placeholder="" />
                         <div class="alert text-red-500" [hidden]="ActivityName?.valid || ActivityName?.untouched">
                             <small *ngIf="ActivityName?.errors?.['required']">اسم النشاط مطلوب
                             </small>
@@ -83,7 +83,7 @@
                             <span class="text-red-500">*</span></label>
                         <input type="text" name="name" id="name" formControlName="Governorate"
                             class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="" required="" />
+                            placeholder="" />
                         <div class="alert text-red-500" [hidden]="Governorate?.valid || Governorate?.untouched">
                             <small *ngIf="Governorate?.errors?.['required']">اسم المحافظة مطلوب
                             </small>
@@ -96,7 +96,7 @@
                                 class="text-red-500">*</span></label>
                         <input type="text" name="item-weight" id="item-weight" formControlName="City"
                             class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="" required="" />
+                            placeholder="" />
                         <div class="alert text-red-500" [hidden]="City?.valid || City?.untouched">
                             <small *ngIf="City?.errors?.['required']">المدينة مطلوبة</small>
                         </div>
@@ -380,7 +380,7 @@
                         class="mx-8 w-50 text-white bg-green-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                         حفظ الطلب
                     </button>
-                    <button (click)="AddPriceoffer(true)" type="submit" [disabled]="ReqForm.invalid"
+                    <button (click)="AddPriceoffer(true)" type="submit"
                         class="registerBtn mx-8 w-50 text-warning bg-dark hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                         حفظ وارسال
                     </button>
