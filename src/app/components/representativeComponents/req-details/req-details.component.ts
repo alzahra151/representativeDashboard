@@ -6,6 +6,8 @@ import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/services/auth.service';
 import { PdfService } from 'src/app/services/pdf.service';
 import { RequestService } from 'src/app/services/request.service';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-req-details',
@@ -21,7 +23,8 @@ export class ReqDetailsComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private router: Router,
     private reqService: RequestService, private FormBuilder: FormBuilder, private authService: AuthService,
     private spinner: NgxSpinnerService, private PdfService: PdfService,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private location: Location) {
 
     this.route.paramMap
       .subscribe(params => {
@@ -71,6 +74,7 @@ export class ReqDetailsComponent implements OnInit, OnDestroy {
               view: window
             })
           );
+          this.updateReqDownloadStatus()
           this.spinner.hide()
           setTimeout(function () {
             // For Firefox it is necessary to delay revoking the ObjectURL
@@ -97,7 +101,15 @@ export class ReqDetailsComponent implements OnInit, OnDestroy {
       detail: "you can't download this file",
     });
   }
-  getCurrency() {
-
+  updateReqDownloadStatus() {
+    this.reqService.updateReq(this.Request._id, { SlaesDownloaded: true }).subscribe({
+      next: (data) => {
+        console.log(data)
+        this.location.back()
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
   }
 }

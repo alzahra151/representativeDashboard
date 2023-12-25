@@ -25,13 +25,13 @@ export class ReqDetailsManagerComponent {
     private reqService: RequestService, private FormBuilder: FormBuilder, private authService: AuthService,
     private spinner: NgxSpinnerService, private PdfService: PdfService) {
 
-    this.route.paramMap
-      .subscribe(params => {
-        console.log(params); // { orderby: "price" }
-        this.ReqID = params.get('id');
-        console.log(this.ReqID); // price
-      }
-      );
+    // this.route.paramMap
+    //   .subscribe(params => {
+    //     console.log(params); // { orderby: "price" }
+    //     this.ReqID = params.get('id');
+    //     console.log(this.ReqID); // price
+    //   }
+    //   );
     this.reqForm = FormBuilder.group({
       InitialAmountOfMoney: ['', [Validators.required]],
       Maintenance: FormBuilder.array([]),
@@ -61,56 +61,56 @@ export class ReqDetailsManagerComponent {
   ngOnInit(): void {
     this.userRole = this.authService.getUserRole()
     console.log(this.userRole)
-    this.getReqDetails()
+    // this.getReqDetails()
 
   }
-  getReqDetails() {
-    this.reqService.GetReqDetails(this.ReqID).subscribe({
-      next: (data) => {
-        this.Request = data
-        console.log(this.Request)
-        this.addServicesMentainanceInputes()
-      },
-      error: (err) => {
-        console.log(err)
-      }
-    })
-  }
-  downloadPDf(offerData: any) {
-    this.spinner.show()
-    // console.log(this.Request)
-    // console.log(offerData)
-    this.PdfService.downloadPDF(offerData).subscribe({
-      next: (x: any) => {
-        var newBlob = new Blob([x], { type: "application/pdf" });
+  // getReqDetails() {
+  //   this.reqService.GetReqDetails(this.ReqID).subscribe({
+  //     next: (data) => {
+  //       this.Request = data
+  //       console.log(this.Request)
+  //       this.addServicesMentainanceInputes()
+  //     },
+  //     error: (err) => {
+  //       console.log(err)
+  //     }
+  //   })
+  // }
+  // downloadPDf(offerData: any) {
+  //   this.spinner.show()
+  //   // console.log(this.Request)
+  //   // console.log(offerData)
+  //   this.PdfService.downloadPDF(offerData).subscribe({
+  //     next: (x: any) => {
+  //       var newBlob = new Blob([x], { type: "application/pdf" });
 
-        const data = window.URL.createObjectURL(newBlob);
-        var link = document.createElement("a");
-        link.href = data;
-        this.pdfUrl = data
-        link.download = `02-${this.Request.QrCode}.pdf`;
-        // this is necessary as link.click() does not work on the latest firefox
-        link.dispatchEvent(
-          new MouseEvent("click", {
-            bubbles: true,
-            cancelable: true,
-            view: window
-          })
-        );
-        this.spinner.hide()
-        setTimeout(function () {
-          // For Firefox it is necessary to delay revoking the ObjectURL
-          window.URL.revokeObjectURL(data);
-          link.remove();
-        }, 100);
-      },
-      error: (err) => {
-        console.log("ERR", err);
-        this.spinner.hide()
-      },
-    })
+  //       const data = window.URL.createObjectURL(newBlob);
+  //       var link = document.createElement("a");
+  //       link.href = data;
+  //       this.pdfUrl = data
+  //       link.download = `02-${this.Request.QrCode}.pdf`;
+  //       // this is necessary as link.click() does not work on the latest firefox
+  //       link.dispatchEvent(
+  //         new MouseEvent("click", {
+  //           bubbles: true,
+  //           cancelable: true,
+  //           view: window
+  //         })
+  //       );
+  //       this.spinner.hide()
+  //       setTimeout(function () {
+  //         // For Firefox it is necessary to delay revoking the ObjectURL
+  //         window.URL.revokeObjectURL(data);
+  //         link.remove();
+  //       }, 100);
+  //     },
+  //     error: (err) => {
+  //       console.log("ERR", err);
+  //       this.spinner.hide()
+  //     },
+  //   })
 
-  }
+  // }
   ngOnDestroy() {
     this.spinner.hide()
 

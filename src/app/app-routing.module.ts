@@ -19,6 +19,8 @@ import { ManagerLayoutComponent } from './components/mangerComponents/manager-la
 import { ManagerHomeComponent } from './components/mangerComponents/manager-home/manager-home.component';
 import { RepresentLayoutComponent } from './components/representativeComponents/represent-layout/represent-layout.component';
 import { RequestArchiveComponent } from './components/representativeComponents/request-archive/request-archive.component';
+// import { RequestArchiveComponent } from './components/mangerComponents/request-archive/request-archive.component';
+
 // import { RepresentHomeComponent } from './components/representativeComponents/represent-home/represent-home.component';
 import { AllRequestsComponent } from './components/mangerComponents/all-requests/all-requests.component';
 import { RepresntHomeComponent } from './components/representativeComponents/represnt-home/represnt-home.component';
@@ -28,6 +30,7 @@ import { AllReqsComponent } from './components/representativeComponents/all-reqs
 import { LoginComponent } from './components/login/login.component';
 import { CompleteReqFormComponent } from './components/mangerComponents/complete-req-form/complete-req-form.component';
 import { EditeUserComponent } from './components/edite-user/edite-user.component';
+import { ApprovedRequestArchiveComponent } from './components/mangerComponents/approved-request-archive/approved-request-archive.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent, },
@@ -48,6 +51,7 @@ const routes: Routes = [
       { path: "approved-reqs", component: AcceptedRequestComponent },
       { path: "rejected-reqs", component: RejectedRequestComponent },
       { path: "ReqDetails/:id", component: ReqDetailsManagerComponent },
+      { path: "sales-archieve", component: ApprovedRequestArchiveComponent },
       { path: "ReqDetails&completeForm/:id", component: CompleteReqFormComponent },
 
       // { path: "CommentedReqs", component: CommentedReqComponent }

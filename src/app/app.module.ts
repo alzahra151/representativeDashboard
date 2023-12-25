@@ -53,6 +53,7 @@ import { PaginatorModule } from "primeng/paginator";
 import { CalendarModule } from 'primeng/calendar';
 import { CompleteReqFormComponent } from './components/mangerComponents/complete-req-form/complete-req-form.component';
 import { EditeUserComponent } from './components/edite-user/edite-user.component';
+import { ApprovedRequestArchiveComponent } from './components/mangerComponents/approved-request-archive/approved-request-archive.component';
 
 // import { AllReqsComponent } from './components/representativeComponents/all-reqs/AllReqsComponent';
 
@@ -89,7 +90,8 @@ import { EditeUserComponent } from './components/edite-user/edite-user.component
     MainReqCardComponent,
     AllReqsComponent,
     CompleteReqFormComponent,
-    EditeUserComponent
+    EditeUserComponent,
+    ApprovedRequestArchiveComponent
 
   ],
   imports: [

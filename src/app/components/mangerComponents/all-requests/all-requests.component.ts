@@ -43,7 +43,7 @@ export class AllRequestsComponent implements OnDestroy {
     this.userService.getRepresentatives().subscribe({
       next: (data) => {
         this.representatives = data
-        console.log(this.representatives)
+        // console.log(this.representatives)
       },
       error(err) {
         console.log(err.message)

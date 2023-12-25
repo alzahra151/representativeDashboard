@@ -69,6 +69,9 @@ export class RequestService {
   getManagerAprovedReq(limit: any, page: any) {
     return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/salesMangersApprovedReq?limit=${limit}&page=${page}`)
   }
+  getApprovedArchieve(limit: any, page: any) {
+    return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/salesApproved-downloadedReq?limit=${limit}&page=${page}`)
+  }
   getRejectedReqs() {
     return this.httpClient.get(`${environment.apiUrl}PriceOfferReq/rejected-req`)
   }
